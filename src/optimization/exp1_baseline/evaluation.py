@@ -38,3 +38,36 @@ print(">> Simulation finished <<".center(width))
 print(f"{'Total iterations:':<20} {iters}")
 print(f"{'Execution time:':<20} {secs//60:.0f} min and {secs%60:.2f} seconds")
 print("-" * width)
+
+#%%
+
+import numpy as np
+
+for i in range(10):
+    for j in range(10):
+        current_iter = i * 10 + j + 1
+        # print(f"Iteration {current_iter}")
+
+total_nums = 100
+divide_to = 5
+q = total_nums // divide_to
+r = total_nums % divide_to
+
+nums = np.arange(q, q*divide_to+q, q)
+nums[-1] += r
+print(nums)
+
+for i in range(10):
+    for j in range(10):
+        current_iter = i * 10 + j + 1
+        if nums is not None and current_iter in nums:
+            print(f"Iteration {current_iter} --> can save")
+            nums = None
+
+total_iters = 100
+num_parts_to_save = 4
+q = total_iters // num_parts_to_save
+r = total_iters % num_parts_to_save
+save_indices = np.arange(q, q * num_parts_to_save + q, q)
+save_indices[-1] += r
+print(save_indices)

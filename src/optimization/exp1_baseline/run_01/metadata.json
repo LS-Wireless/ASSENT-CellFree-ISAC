@@ -42,7 +42,8 @@
   },
   "config": {
     "SAVE_RESULTS": true,
-    "SAVE_CHANNELS": true,
+    "num_parts_to_save": 4,
+    "_num_parts_to_save": "to how many parts the results should be split (for size reduction)",
     "master_seed": 4,
     "run_id": "run_01",
     "experiment": "exp1_baseline",
