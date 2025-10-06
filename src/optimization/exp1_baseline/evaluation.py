@@ -71,3 +71,19 @@ r = total_iters % num_parts_to_save
 save_indices = np.arange(q, q * num_parts_to_save + q, q)
 save_indices[-1] += r
 print(save_indices)
+
+#%%
+
+import numpy as np
+pos_iters = 10
+ch_iters = 10
+alpha_list = [0.1]
+
+total_iters = len(alpha_list) * pos_iters * ch_iters
+
+for alpha_idx, alpha_val in enumerate(alpha_list):
+    for pos_iter in range(pos_iters):
+        for ch_iter in range(ch_iters):
+            current_iter = alpha_idx * pos_iters * ch_iters + pos_iter * ch_iters + ch_iter + 1
+            print(f"[{current_iter}/{total_iters}] Running alpha={alpha_val}, pos={pos_iter}, ch={ch_iter}")
+

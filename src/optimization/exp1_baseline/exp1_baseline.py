@@ -15,7 +15,7 @@ print(">> Simulation Started <<".center(width))
 print("=" * width)
 
 # Load metadata
-run_id = 'run_01'
+run_id = 'run_02'
 experiment = 'exp1_baseline'
 save_path = os.path.join('./', run_id)
 if not os.path.exists(save_path):
@@ -48,7 +48,13 @@ lib.print_log(tag='CONFIG', message=f"Running experiment '{experiment}' with run
 result_keys = config['_full_list_of_results'] if config['results_to_save'] == "all" else config['results_to_save']
 lib.print_log(tag='CONFIG', message=f"Saving results: {result_keys}")
 
-total_iters = num_entity_position_realizations * num_entity_channel_realizations
+if np.isscalar(config['alpha']):
+    alpha_list = [config['alpha']]
+else:
+    alpha_list = config['alpha']
+lib.print_log(tag='CONFIG', message=f"Alpha values: {alpha_list}")
+
+total_iters = num_entity_position_realizations * num_entity_channel_realizations * len(alpha_list)
 lib.print_log(tag='RUN', message=f"Total number of iterations: {total_iters}")
 
 num_parts_to_save = config['num_parts_to_save']
@@ -71,47 +77,49 @@ optparams = None
 save_part_counter = 1
 current_iter = 0
 lib.print_log(tag='RUN', message=f"Starting iterations ...\n")
-for pos_iter in range(num_entity_position_realizations):
-    netparams.user_position_random_state = entity_position_seeds[pos_iter]
-    netparams.target_position_random_state = entity_position_seeds[pos_iter]
+for alpha_idx, alpha_value in enumerate(alpha_list):
+    for pos_iter in range(num_entity_position_realizations):
+        netparams.user_position_random_state = entity_position_seeds[pos_iter]
+        netparams.target_position_random_state = entity_position_seeds[pos_iter]
 
-    for ch_iter in range(num_entity_channel_realizations):
-        current_iter = pos_iter * num_entity_channel_realizations + ch_iter + 1
-        netparams.user_channel_random_state = entity_channel_seeds[ch_iter]
-        netparams.target_channel_random_state = entity_channel_seeds[ch_iter]
-        if (ch_iter+1) % 5 == 0:
-            print(f"[RUN] Running position realization {pos_iter+1}/{num_entity_position_realizations} and channel realization {ch_iter+1}/{num_entity_channel_realizations} ...")
+        for ch_iter in range(num_entity_channel_realizations):
+            current_iter = (alpha_idx * num_entity_position_realizations * num_entity_channel_realizations
+                            + pos_iter * num_entity_channel_realizations + ch_iter + 1)
+            netparams.user_channel_random_state = entity_channel_seeds[ch_iter]
+            netparams.target_channel_random_state = entity_channel_seeds[ch_iter]
+            if (ch_iter+1) % 5 == 0:
+                print(f"[RUN] [{current_iter}/{total_iters}] Running for alpha {alpha_idx+1}/{len(alpha_list)}, position {pos_iter+1}/{num_entity_position_realizations}, and channel {ch_iter+1}/{num_entity_channel_realizations} ...")
 
-        network.generate_topology()
-        G_comm, S_comm = network.generate_commLink_features()
-        G_sens = network.generate_sensLink_features()
+            network.generate_topology()
+            G_comm, S_comm = network.generate_commLink_features()
+            G_sens = network.generate_sensLink_features()
 
-        max_gain = max(np.max(G_comm), np.max(G_sens))
-        G_comm_norm = G_comm / max_gain
-        G_sens_norm = G_sens / max_gain
+            max_gain = max(np.max(G_comm), np.max(G_sens))
+            G_comm_norm = G_comm / max_gain
+            G_sens_norm = G_sens / max_gain
 
-        if pos_iter == 0 and ch_iter == 0:
-            optparams = opt.ProblemParams(G_comm=G_comm_norm, G_sens=G_sens_norm, S_mat=S_comm, alpha=config['alpha'],
-                                          N_RF=netparams.N_RF, K_tx=config['K_tx'], K_rx=config['K_rx'],
-                                          interf_penalty=config['interf_penalty'], rho_thresh=config['rho_thresh'],
-                                          lambda_cu=config['lambda_cu'], lambda_tg=config['lambda_tg'])
-        else:
-            optparams.change(G_comm=G_comm_norm, G_sens=G_sens_norm, S_mat=S_comm, update_dependencies=True)
+            if pos_iter == 0 and ch_iter == 0:
+                optparams = opt.ProblemParams(G_comm=G_comm_norm, G_sens=G_sens_norm, S_mat=S_comm, alpha=alpha_value,
+                                              N_RF=netparams.N_RF, K_tx=config['K_tx'], K_rx=config['K_rx'],
+                                              interf_penalty=config['interf_penalty'], rho_thresh=config['rho_thresh'],
+                                              lambda_cu=config['lambda_cu'], lambda_tg=config['lambda_tg'])
+            else:
+                optparams.change(G_comm=G_comm_norm, G_sens=G_sens_norm, S_mat=S_comm, alpha=alpha_value, update_dependencies=True)
 
-        solution, opt_status, opt_objVal = opt.solve_problem(optparams, return_status=True, return_objVal=True, print_status=False)
+            solution, opt_status, opt_objVal = opt.solve_problem(optparams, return_status=True, return_objVal=True, print_status=False)
 
-        loop_result = {'pos_seed': entity_position_seeds[pos_iter], 'ch_seed': entity_channel_seeds[ch_iter],
-                       'G_comm': G_comm, 'S_comm': S_comm, 'G_sens': G_sens,
-                       'opt_status': opt_status, 'opt_objVal': opt_objVal, 'solution': solution}
-        filtered_result = {k: loop_result[k] for k in result_keys if k in loop_result}
-        saver.add(filtered_result)
-        if SAVE_RESULTS and save_indices is not None and current_iter in save_indices:
-            timestamp = datetime.now().strftime("%Y-%m-%d")
-            file_path = os.path.join(save_path, timestamp + f'_results_p{save_part_counter}_of_{num_parts_to_save}.pkl')
-            saver.save(file_path)
-            lib.print_log(tag='SAVE', message=f"Saved part {save_part_counter} out of {num_parts_to_save} to: '{file_path}'\n")
-            saver.reset()
-            save_part_counter += 1
+            loop_result = {'pos_seed': entity_position_seeds[pos_iter], 'ch_seed': entity_channel_seeds[ch_iter],
+                           'alpha': alpha_value, 'G_comm': G_comm, 'S_comm': S_comm, 'G_sens': G_sens,
+                           'opt_status': opt_status, 'opt_objVal': opt_objVal, 'solution': solution}
+            filtered_result = {k: loop_result[k] for k in result_keys if k in loop_result}
+            saver.add(filtered_result)
+            if SAVE_RESULTS and save_indices is not None and current_iter in save_indices:
+                timestamp = datetime.now().strftime("%Y-%m-%d")
+                file_path = os.path.join(save_path, timestamp + f'_results_p{save_part_counter}_of_{num_parts_to_save}.pkl')
+                saver.save(file_path)
+                lib.print_log(tag='SAVE', message=f"Saved part {save_part_counter} out of {num_parts_to_save} to: '{file_path}'\n")
+                saver.reset()
+                save_part_counter += 1
 
 lib.print_log(tag='RUN', message=f"Finished iterations.\n")
 
