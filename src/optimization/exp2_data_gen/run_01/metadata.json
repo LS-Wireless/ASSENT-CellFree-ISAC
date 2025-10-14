@@ -1,0 +1,23 @@
+{
+  "config": {
+    "SAVE_RESULTS": true,
+    "num_parts_to_save": 1,
+    "_num_parts_to_save": "to how many parts the results should be split (for size reduction)",
+    "master_seed": 4,
+    "run_id": "run_01",
+    "experiment": "exp2_data_gen",
+    "alpha_range": [0.0, 1.0],
+    "K_tx": 2,
+    "K_rx": 2,
+    "interf_penalty": 0.01,
+    "rho_thresh": 0.8,
+    "lambda_cu_range": [0.5, 5.0],
+    "lambda_tg_range": [0.5, 5.0],
+    "results_to_save": "all",
+    "_full_list_of_results": [
+      "alpha", "lambda_cu", "lambda_tg",
+      "opt_status", "opt_objVal", "solution"
+    ],
+    "_note": "Monte Carlo run for exp2_data_gen at run_01"
+  }
+}

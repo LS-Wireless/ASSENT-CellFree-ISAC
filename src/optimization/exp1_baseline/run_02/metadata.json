@@ -63,6 +63,6 @@
       "G_comm", "S_comm", "G_sens",
       "opt_status", "opt_objVal", "solution"
     ],
-    "_note": "Monte Carlo run for exp1_baseline at run_01"
+    "_note": "Monte Carlo run for exp1_baseline at run_02"
   }
 }
