@@ -16,6 +16,9 @@ metadata_path = os.path.join(exp1_folder_path, 'metadata.json')
 with open(metadata_path) as f:
     exp1_metadata = json.load(f)
 num_parts = exp1_metadata['config']['num_parts_to_save']
+N_RF = exp1_metadata['NetworkParams']['N_RF']
+M_a = exp1_metadata['NetworkParams']['M_a']
+env_dim = max(exp1_metadata['NetworkParams']['env_x'], exp1_metadata['NetworkParams']['env_y'])
 
 exp1_results = []
 for i in range(num_parts):
@@ -52,7 +55,7 @@ for idx in range(total_iters):
         lib.print_log(tag='RUN', message=f"Running for iteration {idx+1}/{total_iters} ...")
     snapshot_dict = lu.prepare_snapshot_data(coordinates[idx//num_pos_reals], G_comm_list[idx], S_comm_list[idx], G_sens_list[idx],
                                              alpha_list[idx], lambda_cu_list[idx], lambda_tg_list[idx], solution_list[idx],
-                                             exp1_metadata['NetworkParams']['N_RF'], exp1_metadata['NetworkParams']['M_a'])
+                                             N_RF, M_a, env_dim=env_dim, normalize=True)
     graph_sample = lu.create_graph_sample(snapshot_dict)
     full_dataset.append(graph_sample)
 file_path = os.path.join(save_path, 'final_graph_dataset.pt')

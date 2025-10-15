@@ -5,7 +5,8 @@ import torch
 from torch_geometric.data import HeteroData
 
 
-def prepare_snapshot_data(coordinates, G_comm, S_comm, G_sens, alpha, lambda_cu, lambda_tg, solution, N_RF, M_a):
+def prepare_snapshot_data(coordinates, G_comm, S_comm, G_sens, alpha, lambda_cu, lambda_tg,
+                          solution, N_RF, M_a, env_dim=1000.0, normalize=True):
     """
     Prepares one snapshot of the simulation data for creating a PyG graph.
     :param coordinates: All coordinates (ap_positions, user_positions, target_positions) for one snapshot.
@@ -18,11 +19,17 @@ def prepare_snapshot_data(coordinates, G_comm, S_comm, G_sens, alpha, lambda_cu,
     :param solution: Optimization solution object.
     :param N_RF: (Scalar) Number of RF chains per AP.
     :param M_a: (Scalar) Number of antennas per AP.
+    :param env_dim: (Scalar) Environment maximum dimension (default: 1000).
+    :param normalize: (Boolean) Whether to normalize the data (default: True).
     :return: A snapshot dictionary containing all data for one sample.
     """
-    ap_positions = coordinates['ap_positions']
-    user_positions = coordinates['user_positions']
-    target_positions = coordinates['target_positions']
+    ap_positions = coordinates['ap_positions'] / env_dim if normalize else coordinates['ap_positions']
+    user_positions = coordinates['user_positions'] / env_dim if normalize else coordinates['user_positions']
+    target_positions = coordinates['target_positions'] / env_dim if normalize else coordinates['target_positions']
+
+    max_gain = max(np.max(G_comm), np.max(G_sens))
+    G_comm = G_comm / max_gain if normalize else G_comm
+    G_sens = G_sens / max_gain if normalize else G_sens
 
     num_aps = ap_positions.shape[0]
     num_users = user_positions.shape[0]
@@ -101,6 +108,7 @@ def prepare_snapshot_data(coordinates, G_comm, S_comm, G_sens, alpha, lambda_cu,
     return snapshot_data
 
 
+import torch_geometric.transforms as T
 
 def create_graph_sample(snapshot_data):
     """
@@ -142,6 +150,8 @@ def create_graph_sample(snapshot_data):
     data['ap', 'serves', 'user'].y_x = torch.tensor(snapshot_data['x_solution'], dtype=torch.float)
     data['ap', 'senses', 'target'].y_ytx = torch.tensor(snapshot_data['ytx_solution'], dtype=torch.float)
     data['ap', 'senses', 'target'].y_yrx = torch.tensor(snapshot_data['yrx_solution'], dtype=torch.float)
+
+    data = T.ToUndirected()(data)
 
     return data
 
