@@ -36,6 +36,27 @@ solution_list = [entry["solution"] for entry in results]
 coordinates_path = os.path.join(folder_path, 'coordinates.pkl')
 coordinates = lib.load_results(coordinates_path)
 
+user_pos_list = [entry["user_positions"] for entry in coordinates]
+
 #%%
 
-user_pos_list = [entry["user_positions"] for entry in coordinates]
+G_comm = G_comm_list[0]
+G_sens = G_sens_list[0]
+max_gain = max(np.max(G_comm), np.max(G_sens))
+G_comm_norm = G_comm / max_gain
+G_sens_norm = G_sens / max_gain
+
+print(f"G_comm_norm min: {np.min(G_comm_norm)}, avg: {np.mean(G_comm_norm)}, max: {np.max(G_comm_norm)}")
+print(f"G_sens_norm min: {np.min(G_sens_norm)}, avg: {np.mean(G_sens_norm)}, max: {np.max(G_sens_norm)}")
+
+G_comm_db = 10 * np.log10(G_comm_norm)
+G_sens_db = 10 * np.log10(G_sens_norm)
+
+print(f"G_comm_db min: {np.min(G_comm_db)}, avg: {np.mean(G_comm_db)}, max: {np.max(G_comm_db)}")
+print(f"G_sens_db min: {np.min(G_sens_db)}, avg: {np.mean(G_sens_db)}, max: {np.max(G_sens_db)}")
+
+G_comm_stand = (G_comm_db - np.mean(G_comm_db)) / np.std(G_comm_db)
+G_sens_stand = (G_sens_db - np.mean(G_sens_db)) / np.std(G_sens_db)
+
+print(f"G_comm_stand min: {np.min(G_comm_stand)}, avg: {np.mean(G_comm_stand)}, max: {np.max(G_comm_stand)}")
+print(f"G_sens_stand min: {np.min(G_sens_stand)}, avg: {np.mean(G_sens_stand)}, max: {np.max(G_sens_stand)}")

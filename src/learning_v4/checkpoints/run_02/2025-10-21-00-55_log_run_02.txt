@@ -1,0 +1,397 @@
+==================================================
+             >> ASSENT Run Started <<             
+Tuesday, October 21, 2025 at 12:55:03 AM
+==================================================
+[CONFIG] ------- Run ID: 'run_02'
+[LOAD] --------- Loaded metadata from 'checkpoints/run_02/metadata.json'
+[CONFIG] ------- SAVE_MODEL is True
+[CONFIG] ------- save_dir is 'checkpoints/run_02'
+[LOAD] --------- Loaded exp1 results from '../optimization/exp1_baseline/run_01'
+[LOAD] --------- Loaded exp2 results from '../optimization/exp2_data_gen/run_01'
+[RUN] ---------- Training set size: 8000; Validation set size: 1000; Test set size: 1000
+[CONFIG] ------- Backbone (layer type) is transformer
+[CONFIG] ------- TRAIN is True
+[RUN] ---------- Training ASSENTGNN_Transformer on cpu for 100 epochs
+[RUN] ---------- Starting training epochs...
+
+Epoch 001 | train-loss=4.821 | x-loss=1.823 | tau-loss=0.252 | s-loss=0.441 | ytx-loss=1.140 | yrx-loss=1.066 | lr=1.00e-03 | train-time=37.85s
+ Validate | val-loss=4.1237 | x-F1=0.791 @ 0.56 | tau-F1=0.787 @ 0.10 | s-F1=0.766 @ 0.12 | ytx-F1=0.792 @ 0.43 | yrx-F1=0.816 @ 0.68 | eval-time=11.96s
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=4.1237
+
+Epoch 002 | train-loss=3.571 | x-loss=1.531 | tau-loss=0.174 | s-loss=0.349 | ytx-loss=0.974 | yrx-loss=0.899 | lr=2.08e-04 | train-time=39.86s
+ Validate | val-loss=3.8122 | x-F1=0.811 @ 0.56 | tau-F1=0.810 @ 0.10 | s-F1=0.805 @ 0.10 | ytx-F1=0.807 @ 0.40 | yrx-F1=0.836 @ 0.53 | eval-time=11.10s
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=3.8122
+
+Epoch 003 | train-loss=3.319 | x-loss=1.499 | tau-loss=0.166 | s-loss=0.328 | ytx-loss=0.951 | yrx-loss=0.872 | lr=4.06e-04 | train-time=39.99s
+ Validate | val-loss=3.5704 | x-F1=0.822 @ 0.54 | tau-F1=0.796 @ 0.10 | s-F1=0.828 @ 0.10 | ytx-F1=0.823 @ 0.33 | yrx-F1=0.849 @ 0.72 | eval-time=10.81s
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=3.5704
+
+Epoch 004 | train-loss=3.019 | x-loss=1.447 | tau-loss=0.160 | s-loss=0.313 | ytx-loss=0.924 | yrx-loss=0.842 | lr=6.04e-04 | train-time=39.74s
+ Validate | val-loss=3.4823 | x-F1=0.843 @ 0.52 | tau-F1=0.833 @ 0.10 | s-F1=0.826 @ 0.10 | ytx-F1=0.830 @ 0.40 | yrx-F1=0.855 @ 0.62 | eval-time=11.11s
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=3.4823
+
+Epoch 005 | train-loss=2.704 | x-loss=1.406 | tau-loss=0.153 | s-loss=0.299 | ytx-loss=0.902 | yrx-loss=0.815 | lr=8.02e-04 | train-time=39.84s
+ Validate | val-loss=3.2776 | x-F1=0.848 @ 0.60 | tau-F1=0.812 @ 0.10 | s-F1=0.848 @ 0.12 | ytx-F1=0.844 @ 0.45 | yrx-F1=0.875 @ 0.70 | eval-time=10.93s
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=3.2776
+
+Epoch 006 | train-loss=2.447 | x-loss=1.378 | tau-loss=0.151 | s-loss=0.290 | ytx-loss=0.880 | yrx-loss=0.802 | lr=1.00e-03 | train-time=40.33s
+ Validate | val-loss=3.2357 | x-F1=0.860 @ 0.48 | tau-F1=0.820 @ 0.10 | s-F1=0.849 @ 0.10 | ytx-F1=0.855 @ 0.35 | yrx-F1=0.887 @ 0.75 | eval-time=11.84s
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=3.2357
+
+Epoch 007 | train-loss=2.149 | x-loss=1.338 | tau-loss=0.143 | s-loss=0.270 | ytx-loss=0.854 | yrx-loss=0.773 | lr=1.00e-03 | train-time=40.62s
+ Validate | val-loss=3.0665 | x-F1=0.867 @ 0.52 | tau-F1=0.852 @ 0.10 | s-F1=0.881 @ 0.15 | ytx-F1=0.853 @ 0.53 | yrx-F1=0.888 @ 0.62 | eval-time=11.39s
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=3.0665
+
+Epoch 008 | train-loss=1.880 | x-loss=1.323 | tau-loss=0.134 | s-loss=0.247 | ytx-loss=0.832 | yrx-loss=0.750 | lr=9.99e-04 | train-time=40.49s
+ Validate | val-loss=3.0524 | x-F1=0.872 @ 0.60 | tau-F1=0.878 @ 0.10 | s-F1=0.873 @ 0.12 | ytx-F1=0.863 @ 0.45 | yrx-F1=0.899 @ 0.70 | eval-time=11.36s
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=3.0524
+
+Epoch 009 | train-loss=1.726 | x-loss=1.287 | tau-loss=0.130 | s-loss=0.240 | ytx-loss=0.817 | yrx-loss=0.731 | lr=9.98e-04 | train-time=40.40s
+ Validate | val-loss=2.9524 | x-F1=0.877 @ 0.60 | tau-F1=0.885 @ 0.10 | s-F1=0.878 @ 0.10 | ytx-F1=0.864 @ 0.47 | yrx-F1=0.904 @ 0.68 | eval-time=11.61s
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=2.9524
+
+Epoch 010 | train-loss=1.510 | x-loss=1.274 | tau-loss=0.124 | s-loss=0.217 | ytx-loss=0.805 | yrx-loss=0.716 | lr=9.96e-04 | train-time=40.42s
+ Validate | val-loss=2.8743 | x-F1=0.878 @ 0.48 | tau-F1=0.851 @ 0.10 | s-F1=0.882 @ 0.10 | ytx-F1=0.867 @ 0.45 | yrx-F1=0.904 @ 0.75 | eval-time=11.90s
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=2.8743
+
+Epoch 011 | train-loss=1.436 | x-loss=1.262 | tau-loss=0.118 | s-loss=0.218 | ytx-loss=0.791 | yrx-loss=0.702 | lr=9.94e-04 | train-time=40.50s
+ Validate | val-loss=2.8838 | x-F1=0.885 @ 0.62 | tau-F1=0.897 @ 0.10 | s-F1=0.890 @ 0.10 | ytx-F1=0.872 @ 0.40 | yrx-F1=0.911 @ 0.58 | eval-time=11.16s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep011.pt at epoch 11
+[TRAIN] -------- No improvement on val_loss_total for 1/12 epochs
+
+Epoch 012 | train-loss=1.412 | x-loss=1.248 | tau-loss=0.119 | s-loss=0.216 | ytx-loss=0.780 | yrx-loss=0.700 | lr=9.91e-04 | train-time=41.11s
+ Validate | val-loss=2.8270 | x-F1=0.884 @ 0.54 | tau-F1=0.886 @ 0.10 | s-F1=0.890 @ 0.10 | ytx-F1=0.877 @ 0.45 | yrx-F1=0.912 @ 0.58 | eval-time=12.23s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep012.pt at epoch 12
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=2.8270
+
+Epoch 013 | train-loss=1.212 | x-loss=1.225 | tau-loss=0.113 | s-loss=0.199 | ytx-loss=0.770 | yrx-loss=0.686 | lr=9.88e-04 | train-time=41.14s
+ Validate | val-loss=3.1382 | x-F1=0.884 @ 0.68 | tau-F1=0.893 @ 0.10 | s-F1=0.859 @ 0.10 | ytx-F1=0.868 @ 0.40 | yrx-F1=0.909 @ 0.60 | eval-time=12.31s
+[TRAIN] -------- No improvement on val_loss_total for 1/12 epochs
+
+Epoch 014 | train-loss=1.182 | x-loss=1.229 | tau-loss=0.112 | s-loss=0.194 | ytx-loss=0.767 | yrx-loss=0.681 | lr=9.84e-04 | train-time=40.71s
+ Validate | val-loss=2.8816 | x-F1=0.887 @ 0.60 | tau-F1=0.869 @ 0.10 | s-F1=0.866 @ 0.10 | ytx-F1=0.875 @ 0.35 | yrx-F1=0.910 @ 0.80 | eval-time=12.53s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep014.pt at epoch 14
+[TRAIN] -------- No improvement on val_loss_total for 2/12 epochs
+
+Epoch 015 | train-loss=1.078 | x-loss=1.212 | tau-loss=0.106 | s-loss=0.193 | ytx-loss=0.753 | yrx-loss=0.667 | lr=9.80e-04 | train-time=41.37s
+ Validate | val-loss=2.7365 | x-F1=0.893 @ 0.60 | tau-F1=0.895 @ 0.10 | s-F1=0.904 @ 0.12 | ytx-F1=0.887 @ 0.45 | yrx-F1=0.923 @ 0.62 | eval-time=11.59s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep015.pt at epoch 15
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=2.7365
+
+Epoch 016 | train-loss=1.069 | x-loss=1.213 | tau-loss=0.108 | s-loss=0.186 | ytx-loss=0.750 | yrx-loss=0.669 | lr=9.76e-04 | train-time=41.26s
+ Validate | val-loss=2.6713 | x-F1=0.896 @ 0.56 | tau-F1=0.896 @ 0.10 | s-F1=0.908 @ 0.10 | ytx-F1=0.886 @ 0.50 | yrx-F1=0.924 @ 0.72 | eval-time=11.58s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep016.pt at epoch 16
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=2.6713
+
+Epoch 017 | train-loss=1.050 | x-loss=1.207 | tau-loss=0.105 | s-loss=0.191 | ytx-loss=0.749 | yrx-loss=0.657 | lr=9.71e-04 | train-time=40.63s
+ Validate | val-loss=2.9290 | x-F1=0.894 @ 0.64 | tau-F1=0.904 @ 0.10 | s-F1=0.864 @ 0.10 | ytx-F1=0.879 @ 0.40 | yrx-F1=0.917 @ 0.62 | eval-time=11.94s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep017.pt at epoch 17
+[TRAIN] -------- No improvement on val_loss_total for 1/12 epochs
+
+Epoch 018 | train-loss=0.810 | x-loss=1.198 | tau-loss=0.099 | s-loss=0.170 | ytx-loss=0.736 | yrx-loss=0.647 | lr=9.65e-04 | train-time=41.10s
+ Validate | val-loss=2.7482 | x-F1=0.896 @ 0.60 | tau-F1=0.895 @ 0.10 | s-F1=0.879 @ 0.10 | ytx-F1=0.883 @ 0.47 | yrx-F1=0.918 @ 0.72 | eval-time=11.79s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep018.pt at epoch 18
+[TRAIN] -------- No improvement on val_loss_total for 2/12 epochs
+
+Epoch 019 | train-loss=0.800 | x-loss=1.188 | tau-loss=0.098 | s-loss=0.170 | ytx-loss=0.730 | yrx-loss=0.646 | lr=9.59e-04 | train-time=41.47s
+ Validate | val-loss=2.7562 | x-F1=0.898 @ 0.62 | tau-F1=0.891 @ 0.10 | s-F1=0.860 @ 0.10 | ytx-F1=0.877 @ 0.43 | yrx-F1=0.925 @ 0.75 | eval-time=11.97s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep019.pt at epoch 19
+[TRAIN] -------- No improvement on val_loss_total for 3/12 epochs
+
+Epoch 020 | train-loss=0.827 | x-loss=1.180 | tau-loss=0.098 | s-loss=0.175 | ytx-loss=0.728 | yrx-loss=0.638 | lr=9.53e-04 | train-time=40.86s
+ Validate | val-loss=2.8193 | x-F1=0.899 @ 0.60 | tau-F1=0.911 @ 0.10 | s-F1=0.861 @ 0.10 | ytx-F1=0.879 @ 0.38 | yrx-F1=0.923 @ 0.75 | eval-time=11.87s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep020.pt at epoch 20
+[TRAIN] -------- No improvement on val_loss_total for 4/12 epochs
+
+Epoch 021 | train-loss=0.844 | x-loss=1.177 | tau-loss=0.095 | s-loss=0.180 | ytx-loss=0.726 | yrx-loss=0.637 | lr=9.46e-04 | train-time=41.11s
+ Validate | val-loss=2.7988 | x-F1=0.899 @ 0.62 | tau-F1=0.888 @ 0.10 | s-F1=0.876 @ 0.10 | ytx-F1=0.883 @ 0.38 | yrx-F1=0.926 @ 0.78 | eval-time=12.13s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep021.pt at epoch 21
+[TRAIN] -------- No improvement on val_loss_total for 5/12 epochs
+
+Epoch 022 | train-loss=0.560 | x-loss=1.174 | tau-loss=0.090 | s-loss=0.157 | ytx-loss=0.711 | yrx-loss=0.626 | lr=9.39e-04 | train-time=41.38s
+ Validate | val-loss=2.6728 | x-F1=0.903 @ 0.60 | tau-F1=0.910 @ 0.10 | s-F1=0.875 @ 0.10 | ytx-F1=0.887 @ 0.45 | yrx-F1=0.933 @ 0.65 | eval-time=11.39s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep022.pt at epoch 22
+[TRAIN] -------- No improvement on val_loss_total for 6/12 epochs
+
+Epoch 023 | train-loss=0.675 | x-loss=1.166 | tau-loss=0.092 | s-loss=0.165 | ytx-loss=0.710 | yrx-loss=0.630 | lr=9.31e-04 | train-time=41.10s
+ Validate | val-loss=2.9908 | x-F1=0.895 @ 0.70 | tau-F1=0.924 @ 0.12 | s-F1=0.853 @ 0.10 | ytx-F1=0.878 @ 0.40 | yrx-F1=0.923 @ 0.43 | eval-time=11.88s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep023.pt at epoch 23
+[TRAIN] -------- No improvement on val_loss_total for 7/12 epochs
+
+Epoch 024 | train-loss=0.726 | x-loss=1.161 | tau-loss=0.090 | s-loss=0.171 | ytx-loss=0.711 | yrx-loss=0.624 | lr=9.23e-04 | train-time=40.74s
+ Validate | val-loss=2.6620 | x-F1=0.904 @ 0.62 | tau-F1=0.899 @ 0.10 | s-F1=0.882 @ 0.10 | ytx-F1=0.891 @ 0.40 | yrx-F1=0.935 @ 0.75 | eval-time=11.42s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep024.pt at epoch 24
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=2.6620
+
+Epoch 025 | train-loss=0.478 | x-loss=1.164 | tau-loss=0.088 | s-loss=0.150 | ytx-loss=0.699 | yrx-loss=0.616 | lr=9.14e-04 | train-time=41.28s
+ Validate | val-loss=2.5927 | x-F1=0.904 @ 0.62 | tau-F1=0.896 @ 0.10 | s-F1=0.921 @ 0.10 | ytx-F1=0.894 @ 0.43 | yrx-F1=0.931 @ 0.78 | eval-time=12.26s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep025.pt at epoch 25
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=2.5927
+
+Epoch 026 | train-loss=0.595 | x-loss=1.151 | tau-loss=0.086 | s-loss=0.163 | ytx-loss=0.698 | yrx-loss=0.612 | lr=9.05e-04 | train-time=41.16s
+ Validate | val-loss=2.5359 | x-F1=0.904 @ 0.60 | tau-F1=0.899 @ 0.10 | s-F1=0.931 @ 0.20 | ytx-F1=0.892 @ 0.53 | yrx-F1=0.939 @ 0.88 | eval-time=12.17s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep026.pt at epoch 26
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=2.5359
+
+Epoch 027 | train-loss=0.303 | x-loss=1.137 | tau-loss=0.083 | s-loss=0.140 | ytx-loss=0.692 | yrx-loss=0.607 | lr=8.96e-04 | train-time=40.83s
+ Validate | val-loss=2.5845 | x-F1=0.905 @ 0.62 | tau-F1=0.908 @ 0.10 | s-F1=0.916 @ 0.10 | ytx-F1=0.894 @ 0.50 | yrx-F1=0.934 @ 0.65 | eval-time=11.24s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep027.pt at epoch 27
+[TRAIN] -------- No improvement on val_loss_total for 1/12 epochs
+
+Epoch 028 | train-loss=0.429 | x-loss=1.142 | tau-loss=0.084 | s-loss=0.149 | ytx-loss=0.689 | yrx-loss=0.605 | lr=8.86e-04 | train-time=41.03s
+ Validate | val-loss=2.6678 | x-F1=0.907 @ 0.60 | tau-F1=0.919 @ 0.10 | s-F1=0.882 @ 0.10 | ytx-F1=0.890 @ 0.45 | yrx-F1=0.933 @ 0.62 | eval-time=11.36s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep028.pt at epoch 28
+[TRAIN] -------- No improvement on val_loss_total for 2/12 epochs
+
+Epoch 029 | train-loss=0.427 | x-loss=1.136 | tau-loss=0.084 | s-loss=0.147 | ytx-loss=0.689 | yrx-loss=0.606 | lr=8.76e-04 | train-time=40.72s
+ Validate | val-loss=2.5389 | x-F1=0.905 @ 0.54 | tau-F1=0.913 @ 0.10 | s-F1=0.928 @ 0.12 | ytx-F1=0.895 @ 0.58 | yrx-F1=0.931 @ 0.75 | eval-time=11.77s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep029.pt at epoch 29
+[TRAIN] -------- No improvement on val_loss_total for 3/12 epochs
+
+Epoch 030 | train-loss=0.281 | x-loss=1.127 | tau-loss=0.080 | s-loss=0.140 | ytx-loss=0.682 | yrx-loss=0.595 | lr=8.66e-04 | train-time=40.40s
+ Validate | val-loss=2.5308 | x-F1=0.906 @ 0.56 | tau-F1=0.912 @ 0.10 | s-F1=0.934 @ 0.33 | ytx-F1=0.895 @ 0.58 | yrx-F1=0.938 @ 0.75 | eval-time=11.16s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep030.pt at epoch 30
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=2.5308
+
+Epoch 031 | train-loss=0.296 | x-loss=1.134 | tau-loss=0.078 | s-loss=0.142 | ytx-loss=0.679 | yrx-loss=0.593 | lr=8.55e-04 | train-time=40.52s
+ Validate | val-loss=2.5088 | x-F1=0.909 @ 0.60 | tau-F1=0.914 @ 0.10 | s-F1=0.917 @ 0.10 | ytx-F1=0.897 @ 0.47 | yrx-F1=0.935 @ 0.72 | eval-time=11.45s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep031.pt at epoch 31
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=2.5088
+
+Epoch 032 | train-loss=0.286 | x-loss=1.128 | tau-loss=0.080 | s-loss=0.137 | ytx-loss=0.677 | yrx-loss=0.593 | lr=8.44e-04 | train-time=40.70s
+ Validate | val-loss=2.5549 | x-F1=0.913 @ 0.58 | tau-F1=0.923 @ 0.10 | s-F1=0.915 @ 0.10 | ytx-F1=0.893 @ 0.40 | yrx-F1=0.937 @ 0.78 | eval-time=11.92s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep032.pt at epoch 32
+[TRAIN] -------- No improvement on val_loss_total for 1/12 epochs
+
+Epoch 033 | train-loss=0.176 | x-loss=1.128 | tau-loss=0.077 | s-loss=0.133 | ytx-loss=0.672 | yrx-loss=0.587 | lr=8.32e-04 | train-time=40.91s
+ Validate | val-loss=2.4729 | x-F1=0.913 @ 0.58 | tau-F1=0.924 @ 0.10 | s-F1=0.935 @ 0.10 | ytx-F1=0.899 @ 0.50 | yrx-F1=0.943 @ 0.75 | eval-time=11.41s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep033.pt at epoch 33
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=2.4729
+
+Epoch 034 | train-loss=0.261 | x-loss=1.118 | tau-loss=0.077 | s-loss=0.137 | ytx-loss=0.668 | yrx-loss=0.586 | lr=8.21e-04 | train-time=40.76s
+ Validate | val-loss=2.5682 | x-F1=0.911 @ 0.62 | tau-F1=0.915 @ 0.10 | s-F1=0.901 @ 0.10 | ytx-F1=0.900 @ 0.40 | yrx-F1=0.938 @ 0.75 | eval-time=12.05s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep034.pt at epoch 34
+[TRAIN] -------- No improvement on val_loss_total for 1/12 epochs
+
+Epoch 035 | train-loss=0.109 | x-loss=1.114 | tau-loss=0.074 | s-loss=0.127 | ytx-loss=0.666 | yrx-loss=0.583 | lr=8.08e-04 | train-time=40.78s
+ Validate | val-loss=2.5074 | x-F1=0.911 @ 0.60 | tau-F1=0.918 @ 0.10 | s-F1=0.927 @ 0.10 | ytx-F1=0.902 @ 0.47 | yrx-F1=0.943 @ 0.78 | eval-time=11.95s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep035.pt at epoch 35
+[TRAIN] -------- No improvement on val_loss_total for 2/12 epochs
+
+Epoch 036 | train-loss=0.321 | x-loss=1.117 | tau-loss=0.078 | s-loss=0.134 | ytx-loss=0.670 | yrx-loss=0.587 | lr=7.96e-04 | train-time=40.80s
+ Validate | val-loss=2.4420 | x-F1=0.913 @ 0.52 | tau-F1=0.904 @ 0.10 | s-F1=0.926 @ 0.10 | ytx-F1=0.898 @ 0.50 | yrx-F1=0.943 @ 0.80 | eval-time=11.29s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep036.pt at epoch 36
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=2.4420
+
+Epoch 037 | train-loss=0.072 | x-loss=1.112 | tau-loss=0.070 | s-loss=0.126 | ytx-loss=0.661 | yrx-loss=0.578 | lr=7.83e-04 | train-time=40.82s
+ Validate | val-loss=2.5083 | x-F1=0.915 @ 0.60 | tau-F1=0.921 @ 0.10 | s-F1=0.919 @ 0.10 | ytx-F1=0.895 @ 0.45 | yrx-F1=0.940 @ 0.70 | eval-time=11.51s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep037.pt at epoch 37
+[TRAIN] -------- No improvement on val_loss_total for 1/12 epochs
+
+Epoch 038 | train-loss=0.246 | x-loss=1.104 | tau-loss=0.073 | s-loss=0.133 | ytx-loss=0.663 | yrx-loss=0.581 | lr=7.70e-04 | train-time=40.75s
+ Validate | val-loss=2.4654 | x-F1=0.913 @ 0.60 | tau-F1=0.923 @ 0.10 | s-F1=0.930 @ 0.15 | ytx-F1=0.901 @ 0.53 | yrx-F1=0.938 @ 0.68 | eval-time=11.26s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep038.pt at epoch 38
+[TRAIN] -------- No improvement on val_loss_total for 2/12 epochs
+
+Epoch 039 | train-loss=0.109 | x-loss=1.099 | tau-loss=0.073 | s-loss=0.124 | ytx-loss=0.661 | yrx-loss=0.578 | lr=7.57e-04 | train-time=40.99s
+ Validate | val-loss=2.4779 | x-F1=0.912 @ 0.64 | tau-F1=0.920 @ 0.10 | s-F1=0.927 @ 0.10 | ytx-F1=0.899 @ 0.47 | yrx-F1=0.941 @ 0.78 | eval-time=11.77s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep039.pt at epoch 39
+[TRAIN] -------- No improvement on val_loss_total for 3/12 epochs
+
+Epoch 040 | train-loss=0.104 | x-loss=1.109 | tau-loss=0.071 | s-loss=0.124 | ytx-loss=0.655 | yrx-loss=0.575 | lr=7.43e-04 | train-time=40.82s
+ Validate | val-loss=2.4283 | x-F1=0.914 @ 0.58 | tau-F1=0.913 @ 0.10 | s-F1=0.931 @ 0.10 | ytx-F1=0.903 @ 0.50 | yrx-F1=0.945 @ 0.83 | eval-time=11.14s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep040.pt at epoch 40
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=2.4283
+
+Epoch 041 | train-loss=-0.026 | x-loss=1.096 | tau-loss=0.071 | s-loss=0.116 | ytx-loss=0.654 | yrx-loss=0.570 | lr=7.30e-04 | train-time=40.73s
+ Validate | val-loss=2.4545 | x-F1=0.913 @ 0.60 | tau-F1=0.910 @ 0.10 | s-F1=0.933 @ 0.15 | ytx-F1=0.901 @ 0.55 | yrx-F1=0.946 @ 0.80 | eval-time=11.63s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep041.pt at epoch 41
+[TRAIN] -------- No improvement on val_loss_total for 1/12 epochs
+
+Epoch 042 | train-loss=-0.002 | x-loss=1.102 | tau-loss=0.070 | s-loss=0.117 | ytx-loss=0.648 | yrx-loss=0.572 | lr=7.16e-04 | train-time=40.89s
+ Validate | val-loss=2.4872 | x-F1=0.915 @ 0.64 | tau-F1=0.921 @ 0.10 | s-F1=0.909 @ 0.10 | ytx-F1=0.901 @ 0.45 | yrx-F1=0.941 @ 0.65 | eval-time=11.79s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep042.pt at epoch 42
+[TRAIN] -------- No improvement on val_loss_total for 2/12 epochs
+
+Epoch 043 | train-loss=-0.092 | x-loss=1.088 | tau-loss=0.069 | s-loss=0.110 | ytx-loss=0.653 | yrx-loss=0.572 | lr=7.02e-04 | train-time=40.96s
+ Validate | val-loss=2.4136 | x-F1=0.916 @ 0.60 | tau-F1=0.927 @ 0.10 | s-F1=0.930 @ 0.12 | ytx-F1=0.903 @ 0.47 | yrx-F1=0.945 @ 0.80 | eval-time=11.68s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep043.pt at epoch 43
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=2.4136
+
+Epoch 044 | train-loss=-0.098 | x-loss=1.088 | tau-loss=0.065 | s-loss=0.113 | ytx-loss=0.644 | yrx-loss=0.559 | lr=6.87e-04 | train-time=40.75s
+ Validate | val-loss=2.4930 | x-F1=0.915 @ 0.58 | tau-F1=0.929 @ 0.10 | s-F1=0.906 @ 0.10 | ytx-F1=0.902 @ 0.45 | yrx-F1=0.941 @ 0.70 | eval-time=11.29s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep044.pt at epoch 44
+[TRAIN] -------- No improvement on val_loss_total for 1/12 epochs
+
+Epoch 045 | train-loss=0.053 | x-loss=1.088 | tau-loss=0.065 | s-loss=0.117 | ytx-loss=0.646 | yrx-loss=0.566 | lr=6.73e-04 | train-time=40.82s
+ Validate | val-loss=2.4408 | x-F1=0.919 @ 0.54 | tau-F1=0.928 @ 0.10 | s-F1=0.920 @ 0.10 | ytx-F1=0.901 @ 0.47 | yrx-F1=0.942 @ 0.80 | eval-time=12.57s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep045.pt at epoch 45
+[TRAIN] -------- No improvement on val_loss_total for 2/12 epochs
+
+Epoch 046 | train-loss=-0.152 | x-loss=1.089 | tau-loss=0.067 | s-loss=0.105 | ytx-loss=0.641 | yrx-loss=0.565 | lr=6.58e-04 | train-time=40.94s
+ Validate | val-loss=2.4601 | x-F1=0.917 @ 0.62 | tau-F1=0.934 @ 0.10 | s-F1=0.926 @ 0.10 | ytx-F1=0.904 @ 0.40 | yrx-F1=0.945 @ 0.72 | eval-time=11.84s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep046.pt at epoch 46
+[TRAIN] -------- No improvement on val_loss_total for 3/12 epochs
+
+Epoch 047 | train-loss=-0.048 | x-loss=1.087 | tau-loss=0.065 | s-loss=0.109 | ytx-loss=0.638 | yrx-loss=0.560 | lr=6.43e-04 | train-time=40.78s
+ Validate | val-loss=2.4407 | x-F1=0.913 @ 0.48 | tau-F1=0.915 @ 0.10 | s-F1=0.926 @ 0.10 | ytx-F1=0.903 @ 0.47 | yrx-F1=0.941 @ 0.83 | eval-time=12.27s
+[TRAIN] -------- No improvement on val_loss_total for 4/12 epochs
+
+Epoch 048 | train-loss=-0.055 | x-loss=1.093 | tau-loss=0.065 | s-loss=0.107 | ytx-loss=0.637 | yrx-loss=0.559 | lr=6.28e-04 | train-time=40.38s
+ Validate | val-loss=2.4693 | x-F1=0.915 @ 0.58 | tau-F1=0.932 @ 0.10 | s-F1=0.916 @ 0.10 | ytx-F1=0.898 @ 0.47 | yrx-F1=0.941 @ 0.70 | eval-time=11.35s
+[TRAIN] -------- No improvement on val_loss_total for 5/12 epochs
+
+Epoch 049 | train-loss=0.055 | x-loss=1.078 | tau-loss=0.063 | s-loss=0.114 | ytx-loss=0.637 | yrx-loss=0.556 | lr=6.13e-04 | train-time=40.37s
+ Validate | val-loss=2.4857 | x-F1=0.919 @ 0.68 | tau-F1=0.934 @ 0.10 | s-F1=0.918 @ 0.10 | ytx-F1=0.902 @ 0.45 | yrx-F1=0.945 @ 0.62 | eval-time=13.00s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep049.pt at epoch 49
+[TRAIN] -------- No improvement on val_loss_total for 6/12 epochs
+
+Epoch 050 | train-loss=-0.176 | x-loss=1.075 | tau-loss=0.063 | s-loss=0.102 | ytx-loss=0.638 | yrx-loss=0.558 | lr=5.98e-04 | train-time=40.87s
+ Validate | val-loss=2.4533 | x-F1=0.917 @ 0.52 | tau-F1=0.938 @ 0.10 | s-F1=0.937 @ 0.12 | ytx-F1=0.904 @ 0.45 | yrx-F1=0.945 @ 0.68 | eval-time=12.03s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep050.pt at epoch 50
+[TRAIN] -------- No improvement on val_loss_total for 7/12 epochs
+
+Epoch 051 | train-loss=0.021 | x-loss=1.069 | tau-loss=0.062 | s-loss=0.109 | ytx-loss=0.636 | yrx-loss=0.555 | lr=5.82e-04 | train-time=40.87s
+ Validate | val-loss=2.4731 | x-F1=0.919 @ 0.60 | tau-F1=0.926 @ 0.10 | s-F1=0.918 @ 0.10 | ytx-F1=0.904 @ 0.40 | yrx-F1=0.947 @ 0.70 | eval-time=12.48s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep051.pt at epoch 51
+[TRAIN] -------- No improvement on val_loss_total for 8/12 epochs
+
+Epoch 052 | train-loss=-0.237 | x-loss=1.079 | tau-loss=0.061 | s-loss=0.097 | ytx-loss=0.633 | yrx-loss=0.551 | lr=5.67e-04 | train-time=40.73s
+ Validate | val-loss=2.4280 | x-F1=0.917 @ 0.58 | tau-F1=0.919 @ 0.10 | s-F1=0.932 @ 0.10 | ytx-F1=0.904 @ 0.47 | yrx-F1=0.941 @ 0.83 | eval-time=11.84s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep052.pt at epoch 52
+[TRAIN] -------- No improvement on val_loss_total for 9/12 epochs
+
+Epoch 053 | train-loss=-0.294 | x-loss=1.070 | tau-loss=0.058 | s-loss=0.095 | ytx-loss=0.629 | yrx-loss=0.547 | lr=5.52e-04 | train-time=40.72s
+ Validate | val-loss=2.5440 | x-F1=0.918 @ 0.60 | tau-F1=0.929 @ 0.10 | s-F1=0.937 @ 0.43 | ytx-F1=0.904 @ 0.47 | yrx-F1=0.944 @ 0.85 | eval-time=12.46s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep053.pt at epoch 53
+[TRAIN] -------- No improvement on val_loss_total for 10/12 epochs
+
+Epoch 054 | train-loss=0.114 | x-loss=1.079 | tau-loss=0.059 | s-loss=0.108 | ytx-loss=0.626 | yrx-loss=0.547 | lr=5.36e-04 | train-time=41.06s
+ Validate | val-loss=2.3839 | x-F1=0.922 @ 0.56 | tau-F1=0.938 @ 0.10 | s-F1=0.939 @ 0.10 | ytx-F1=0.906 @ 0.50 | yrx-F1=0.947 @ 0.65 | eval-time=11.59s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep054.pt at epoch 54
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=2.3839
+
+Epoch 055 | train-loss=-0.342 | x-loss=1.066 | tau-loss=0.057 | s-loss=0.091 | ytx-loss=0.623 | yrx-loss=0.543 | lr=5.21e-04 | train-time=40.84s
+ Validate | val-loss=2.3760 | x-F1=0.920 @ 0.62 | tau-F1=0.935 @ 0.10 | s-F1=0.941 @ 0.10 | ytx-F1=0.906 @ 0.47 | yrx-F1=0.949 @ 0.85 | eval-time=11.18s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep055.pt at epoch 55
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=2.3760
+
+Epoch 056 | train-loss=-0.057 | x-loss=1.065 | tau-loss=0.058 | s-loss=0.099 | ytx-loss=0.623 | yrx-loss=0.543 | lr=5.05e-04 | train-time=40.98s
+ Validate | val-loss=2.3639 | x-F1=0.920 @ 0.54 | tau-F1=0.930 @ 0.10 | s-F1=0.943 @ 0.10 | ytx-F1=0.909 @ 0.50 | yrx-F1=0.949 @ 0.78 | eval-time=12.42s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep056.pt at epoch 56
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=2.3639
+
+Epoch 057 | train-loss=0.067 | x-loss=1.064 | tau-loss=0.057 | s-loss=0.103 | ytx-loss=0.622 | yrx-loss=0.543 | lr=4.89e-04 | train-time=40.91s
+ Validate | val-loss=2.4098 | x-F1=0.920 @ 0.58 | tau-F1=0.931 @ 0.10 | s-F1=0.935 @ 0.10 | ytx-F1=0.906 @ 0.53 | yrx-F1=0.946 @ 0.72 | eval-time=10.83s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep057.pt at epoch 57
+[TRAIN] -------- No improvement on val_loss_total for 1/12 epochs
+
+Epoch 058 | train-loss=-0.124 | x-loss=1.062 | tau-loss=0.054 | s-loss=0.097 | ytx-loss=0.622 | yrx-loss=0.540 | lr=4.74e-04 | train-time=40.89s
+ Validate | val-loss=2.3723 | x-F1=0.920 @ 0.60 | tau-F1=0.936 @ 0.10 | s-F1=0.935 @ 0.10 | ytx-F1=0.907 @ 0.53 | yrx-F1=0.950 @ 0.70 | eval-time=12.22s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep058.pt at epoch 58
+[TRAIN] -------- No improvement on val_loss_total for 2/12 epochs
+
+Epoch 059 | train-loss=-0.183 | x-loss=1.063 | tau-loss=0.055 | s-loss=0.093 | ytx-loss=0.622 | yrx-loss=0.541 | lr=4.58e-04 | train-time=40.93s
+ Validate | val-loss=2.3914 | x-F1=0.920 @ 0.60 | tau-F1=0.930 @ 0.10 | s-F1=0.932 @ 0.10 | ytx-F1=0.908 @ 0.47 | yrx-F1=0.948 @ 0.83 | eval-time=11.84s
+[TRAIN] -------- No improvement on val_loss_total for 3/12 epochs
+
+Epoch 060 | train-loss=-0.300 | x-loss=1.055 | tau-loss=0.054 | s-loss=0.088 | ytx-loss=0.619 | yrx-loss=0.538 | lr=4.43e-04 | train-time=40.67s
+ Validate | val-loss=2.3806 | x-F1=0.921 @ 0.54 | tau-F1=0.934 @ 0.10 | s-F1=0.933 @ 0.10 | ytx-F1=0.907 @ 0.45 | yrx-F1=0.950 @ 0.70 | eval-time=11.89s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep060.pt at epoch 60
+[TRAIN] -------- No improvement on val_loss_total for 4/12 epochs
+
+Epoch 061 | train-loss=-0.102 | x-loss=1.071 | tau-loss=0.053 | s-loss=0.093 | ytx-loss=0.616 | yrx-loss=0.535 | lr=4.28e-04 | train-time=40.74s
+ Validate | val-loss=2.3627 | x-F1=0.921 @ 0.56 | tau-F1=0.928 @ 0.10 | s-F1=0.949 @ 0.10 | ytx-F1=0.909 @ 0.47 | yrx-F1=0.947 @ 0.80 | eval-time=11.87s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep061.pt at epoch 61
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=2.3627
+
+Epoch 062 | train-loss=-0.416 | x-loss=1.052 | tau-loss=0.052 | s-loss=0.083 | ytx-loss=0.613 | yrx-loss=0.533 | lr=4.12e-04 | train-time=40.79s
+ Validate | val-loss=2.4038 | x-F1=0.923 @ 0.58 | tau-F1=0.942 @ 0.10 | s-F1=0.918 @ 0.10 | ytx-F1=0.907 @ 0.47 | yrx-F1=0.951 @ 0.72 | eval-time=12.31s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep062.pt at epoch 62
+[TRAIN] -------- No improvement on val_loss_total for 1/12 epochs
+
+Epoch 063 | train-loss=-0.253 | x-loss=1.051 | tau-loss=0.052 | s-loss=0.087 | ytx-loss=0.610 | yrx-loss=0.531 | lr=3.97e-04 | train-time=40.81s
+ Validate | val-loss=2.3638 | x-F1=0.923 @ 0.56 | tau-F1=0.935 @ 0.10 | s-F1=0.946 @ 0.15 | ytx-F1=0.909 @ 0.50 | yrx-F1=0.949 @ 0.70 | eval-time=11.11s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep063.pt at epoch 63
+[TRAIN] -------- No improvement on val_loss_total for 2/12 epochs
+
+Epoch 064 | train-loss=-0.343 | x-loss=1.055 | tau-loss=0.052 | s-loss=0.082 | ytx-loss=0.610 | yrx-loss=0.529 | lr=3.82e-04 | train-time=40.90s
+ Validate | val-loss=2.4108 | x-F1=0.922 @ 0.66 | tau-F1=0.941 @ 0.10 | s-F1=0.938 @ 0.10 | ytx-F1=0.909 @ 0.47 | yrx-F1=0.951 @ 0.68 | eval-time=12.08s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep064.pt at epoch 64
+[TRAIN] -------- No improvement on val_loss_total for 3/12 epochs
+
+Epoch 065 | train-loss=-0.242 | x-loss=1.048 | tau-loss=0.051 | s-loss=0.083 | ytx-loss=0.611 | yrx-loss=0.529 | lr=3.67e-04 | train-time=40.91s
+ Validate | val-loss=2.3542 | x-F1=0.921 @ 0.52 | tau-F1=0.924 @ 0.10 | s-F1=0.946 @ 0.10 | ytx-F1=0.909 @ 0.47 | yrx-F1=0.948 @ 0.80 | eval-time=11.67s
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=2.3542
+
+Epoch 066 | train-loss=-0.194 | x-loss=1.054 | tau-loss=0.051 | s-loss=0.083 | ytx-loss=0.607 | yrx-loss=0.527 | lr=3.52e-04 | train-time=40.61s
+ Validate | val-loss=2.3348 | x-F1=0.923 @ 0.58 | tau-F1=0.941 @ 0.10 | s-F1=0.940 @ 0.10 | ytx-F1=0.910 @ 0.53 | yrx-F1=0.954 @ 0.75 | eval-time=11.47s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep066.pt at epoch 66
+[TRAIN] -------- EarlyStop monitor improved: val_loss_total=2.3348
+
+Epoch 067 | train-loss=-0.468 | x-loss=1.043 | tau-loss=0.052 | s-loss=0.074 | ytx-loss=0.608 | yrx-loss=0.527 | lr=3.37e-04 | train-time=40.83s
+ Validate | val-loss=2.3971 | x-F1=0.923 @ 0.64 | tau-F1=0.941 @ 0.10 | s-F1=0.941 @ 0.10 | ytx-F1=0.910 @ 0.50 | yrx-F1=0.952 @ 0.72 | eval-time=12.64s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep067.pt at epoch 67
+[TRAIN] -------- No improvement on val_loss_total for 1/12 epochs
+
+Epoch 068 | train-loss=0.286 | x-loss=1.054 | tau-loss=0.052 | s-loss=0.091 | ytx-loss=0.609 | yrx-loss=0.525 | lr=3.23e-04 | train-time=40.84s
+ Validate | val-loss=2.3801 | x-F1=0.924 @ 0.58 | tau-F1=0.936 @ 0.10 | s-F1=0.935 @ 0.10 | ytx-F1=0.908 @ 0.45 | yrx-F1=0.951 @ 0.80 | eval-time=11.71s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep068.pt at epoch 68
+[TRAIN] -------- No improvement on val_loss_total for 2/12 epochs
+
+Epoch 069 | train-loss=-0.207 | x-loss=1.037 | tau-loss=0.049 | s-loss=0.079 | ytx-loss=0.605 | yrx-loss=0.523 | lr=3.08e-04 | train-time=40.80s
+ Validate | val-loss=2.3966 | x-F1=0.923 @ 0.66 | tau-F1=0.936 @ 0.10 | s-F1=0.932 @ 0.10 | ytx-F1=0.908 @ 0.47 | yrx-F1=0.950 @ 0.75 | eval-time=11.48s
+[TRAIN] -------- No improvement on val_loss_total for 3/12 epochs
+
+Epoch 070 | train-loss=-0.029 | x-loss=1.038 | tau-loss=0.049 | s-loss=0.082 | ytx-loss=0.601 | yrx-loss=0.521 | lr=2.94e-04 | train-time=40.74s
+ Validate | val-loss=2.4184 | x-F1=0.923 @ 0.60 | tau-F1=0.932 @ 0.10 | s-F1=0.924 @ 0.10 | ytx-F1=0.908 @ 0.45 | yrx-F1=0.950 @ 0.85 | eval-time=11.96s
+[TRAIN] -------- No improvement on val_loss_total for 4/12 epochs
+
+Epoch 071 | train-loss=-0.269 | x-loss=1.054 | tau-loss=0.049 | s-loss=0.074 | ytx-loss=0.606 | yrx-loss=0.522 | lr=2.80e-04 | train-time=40.48s
+ Validate | val-loss=2.3891 | x-F1=0.923 @ 0.58 | tau-F1=0.938 @ 0.10 | s-F1=0.943 @ 0.10 | ytx-F1=0.910 @ 0.50 | yrx-F1=0.950 @ 0.72 | eval-time=11.26s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep071.pt at epoch 71
+[TRAIN] -------- No improvement on val_loss_total for 5/12 epochs
+
+Epoch 072 | train-loss=0.281 | x-loss=1.034 | tau-loss=0.047 | s-loss=0.086 | ytx-loss=0.601 | yrx-loss=0.520 | lr=2.67e-04 | train-time=40.80s
+ Validate | val-loss=2.3538 | x-F1=0.924 @ 0.60 | tau-F1=0.937 @ 0.10 | s-F1=0.944 @ 0.10 | ytx-F1=0.912 @ 0.47 | yrx-F1=0.951 @ 0.80 | eval-time=11.62s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep072.pt at epoch 72
+[TRAIN] -------- No improvement on val_loss_total for 6/12 epochs
+
+Epoch 073 | train-loss=-0.720 | x-loss=1.034 | tau-loss=0.045 | s-loss=0.064 | ytx-loss=0.600 | yrx-loss=0.517 | lr=2.53e-04 | train-time=41.05s
+ Validate | val-loss=2.4417 | x-F1=0.922 @ 0.56 | tau-F1=0.933 @ 0.10 | s-F1=0.953 @ 0.12 | ytx-F1=0.908 @ 0.53 | yrx-F1=0.946 @ 0.80 | eval-time=11.93s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep073.pt at epoch 73
+[TRAIN] -------- No improvement on val_loss_total for 7/12 epochs
+
+Epoch 074 | train-loss=0.032 | x-loss=1.035 | tau-loss=0.050 | s-loss=0.076 | ytx-loss=0.598 | yrx-loss=0.517 | lr=2.40e-04 | train-time=40.89s
+ Validate | val-loss=2.4031 | x-F1=0.923 @ 0.56 | tau-F1=0.938 @ 0.10 | s-F1=0.937 @ 0.10 | ytx-F1=0.909 @ 0.45 | yrx-F1=0.953 @ 0.83 | eval-time=11.39s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep074.pt at epoch 74
+[TRAIN] -------- No improvement on val_loss_total for 8/12 epochs
+
+Epoch 075 | train-loss=-0.406 | x-loss=1.040 | tau-loss=0.047 | s-loss=0.068 | ytx-loss=0.595 | yrx-loss=0.515 | lr=2.27e-04 | train-time=41.20s
+ Validate | val-loss=2.3781 | x-F1=0.924 @ 0.60 | tau-F1=0.936 @ 0.10 | s-F1=0.941 @ 0.10 | ytx-F1=0.910 @ 0.45 | yrx-F1=0.952 @ 0.78 | eval-time=12.37s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep075.pt at epoch 75
+[TRAIN] -------- No improvement on val_loss_total for 9/12 epochs
+
+Epoch 076 | train-loss=-0.299 | x-loss=1.028 | tau-loss=0.045 | s-loss=0.070 | ytx-loss=0.596 | yrx-loss=0.513 | lr=2.14e-04 | train-time=41.00s
+ Validate | val-loss=2.3822 | x-F1=0.925 @ 0.62 | tau-F1=0.936 @ 0.10 | s-F1=0.945 @ 0.10 | ytx-F1=0.911 @ 0.43 | yrx-F1=0.952 @ 0.75 | eval-time=12.02s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep076.pt at epoch 76
+[TRAIN] -------- No improvement on val_loss_total for 10/12 epochs
+
+Epoch 077 | train-loss=-0.191 | x-loss=1.027 | tau-loss=0.045 | s-loss=0.070 | ytx-loss=0.595 | yrx-loss=0.516 | lr=2.02e-04 | train-time=41.10s
+ Validate | val-loss=2.3703 | x-F1=0.925 @ 0.54 | tau-F1=0.939 @ 0.10 | s-F1=0.948 @ 0.18 | ytx-F1=0.913 @ 0.50 | yrx-F1=0.955 @ 0.78 | eval-time=11.59s
+[SAVE] --------- Saved pareto checkpoint to checkpoints/run_02/pareto_ep077.pt at epoch 77
+[TRAIN] -------- No improvement on val_loss_total for 11/12 epochs
+
+Epoch 078 | train-loss=0.041 | x-loss=1.022 | tau-loss=0.043 | s-loss=0.074 | ytx-loss=0.595 | yrx-loss=0.511 | lr=1.89e-04 | train-time=40.94s
+ Validate | val-loss=2.3940 | x-F1=0.924 @ 0.58 | tau-F1=0.937 @ 0.10 | s-F1=0.943 @ 0.10 | ytx-F1=0.908 @ 0.58 | yrx-F1=0.951 @ 0.72 | eval-time=11.95s
+[TRAIN] -------- No improvement on val_loss_total for 12/12 epochs
+[TRAIN] -------- Early stopping triggered on val_loss_total.
+[RUN] ---------- Finished training!
+
+[SAVE] --------- Saved model weights to 'checkpoints/run_02/2025-10-21-02-03_best_model_fully_trained.pt'
+[SAVE] --------- Saved history JSON to 'checkpoints/run_02/2025-10-21-02-03_history.json'
+[SAVE] --------- Saved summary to 'checkpoints/run_02/2025-10-21-02-03_summary.json'
+==================================================
+            >> ASSENT Run Finished <<             
+Execution time:      68 min and 31.33 seconds
+==================================================

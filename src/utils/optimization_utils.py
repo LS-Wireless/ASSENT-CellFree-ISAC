@@ -248,7 +248,7 @@ def solve_problem(params: ProblemParams, print_status=True, return_status=False,
     comm_util = (gp.quicksum(
         params.lambda_cu[u] * params.G_comm[a, u] * x[a, u] for a in range(params.N_ap) for u in range(params.N_cu))
                  - params.interf_penalty * gp.quicksum(((params.lambda_cu[u] + params.lambda_cu[up]) / 2) * params.S_mat[a, u, up] * params.G_comm[a, u] * v[a, u, up]
-                                                              for a in range(params.N_ap) for u in range(params.N_cu) for up in range(params.N_cu) if u < up)) / U_comm_ref
+                                                       for a in range(params.N_ap) for u in range(params.N_cu) for up in range(params.N_cu) if u < up)) / U_comm_ref
     sense_util = gp.quicksum(
         params.lambda_tg[t] * params.G_sens[a_t, a_r, t] * z[a_t, t, a_r] for a_t in range(params.N_ap) for a_r in
         range(params.N_ap) for t in range(params.N_tg)) / U_sens_ref
@@ -299,5 +299,73 @@ def solve_problem(params: ProblemParams, print_status=True, return_status=False,
         return solution, model.objVal
     else:
         return solution
+
+
+
+
+
+
+def compute_milp_objective(input_params: dict, solution) -> float:
+    """
+    Computes the objective value of the MILP problem.
+    :param input_params: Dictionary {'G_comm', 'S_comm', 'G_sens', 'lambda_cu', 'lambda_tg', 'alpha', 'interf_penalty'}
+    :param solution: Solution object or dictionary {'x', 'tau', 'y_tx', 'y_rx', 's'}
+    :return: Objective value evaluated on the solution
+    """
+    from types import SimpleNamespace
+    params = SimpleNamespace(**input_params)
+    if isinstance(solution, dict):
+        sol = SimpleNamespace(**solution)
+    else:
+        sol = solution
+
+    A, U = params.G_comm.shape
+    T = params.G_sens.shape[-1]
+    x = np.asarray(sol.x, dtype=np.float64)         # [A,U]
+    tau = np.asarray(sol.tau, dtype=np.float64)     # [A]
+    ytx = np.asarray(sol.y_tx, dtype=np.float64)    # [A,T]
+    yrx = np.asarray(sol.y_rx, dtype=np.float64)    # [A,T]
+    s = np.asarray(sol.s, dtype=np.float64)         # [T]
+
+    Gc = np.asarray(params.G_comm, dtype=np.float64)  # [A,U]
+    Sc = np.asarray(params.S_comm, dtype=np.float64)  # [A,U,U]
+    Gs = np.asarray(params.G_sens, dtype=np.float64)
+    lcu = np.asarray(params.lambda_cu, dtype=np.float64)  # [U]
+    ltg = np.asarray(params.lambda_tg, dtype=np.float64)  # [T]
+    alpha = float(params.alpha)
+    beta = float(params.interf_penalty)
+
+    max_gain = max(np.max(Gc), np.max(Gs))
+    Gcn = Gc / max_gain
+    Gsn = Gs / max_gain
+
+    mu = np.sum(Gcn * lcu.reshape(1, -1), axis=1)
+
+    U_comm_ref = float(np.sum(Gcn) - beta * np.sum([Sc[a, u, up] * Gcn[a, u] for a in range(A)
+                                                    for u in range(U) for up in range(U) if u < up]))
+    U_sens_ref = np.sum(Gsn)
+
+    # gain term
+    comm_util_p1 = np.sum(lcu[None, :] * Gcn * x)
+    # interference term: sum over u<up
+    u, up = np.triu_indices(U, k=1)
+    l_pair = 0.5 * (lcu[u] + lcu[up])  # [P], P=U*(U-1)/2
+    # Stack per-AP contributions into [A, P] and sum axis=1 then overall:
+    V = x[:, u] * x[:, up]  # [A, P]
+    Sc_u = Sc[:, u, up]  # [A, P]
+    Gcn_u = Gcn[:, u]  # [A, P]
+    per_a = (l_pair[None, :] * Sc_u * Gcn_u * V).sum(axis=1)  # [A]
+    comm_util_p2 = per_a.sum()
+    comm_util = (comm_util_p1 - beta * comm_util_p2) / U_comm_ref
+
+    sense_util = float(np.sum([ltg[t] * Gsn[a_t, a_r, t] * (ytx[a_t, t] * yrx[a_r, t] * s[t])
+                               for a_t in range(A) for a_r in range(A) for t in range(T)])) / U_sens_ref
+
+    tx_reward = np.sum(mu[a] * tau[a] for a in range(A))
+
+    obj_val = alpha * comm_util + (1 - alpha) * sense_util + tx_reward
+    return obj_val
+
+
 
 

@@ -1,0 +1,10 @@
+{
+  "best_f1x": 0.9227738976478577,
+  "best_f1tau": 0.9583628608073986,
+  "best_f1s": 0.9496062992125984,
+  "thr_x": 0.5800000000000001,
+  "thr_tau": 0.2,
+  "thr_s": 0.15000000000000002,
+  "model_path": "checkpoints/2025-10-19-14-51_best_model_fully_trained.pt",
+  "history_path": "checkpoints/2025-10-19-14-51_history.json"
+}

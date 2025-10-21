@@ -27,9 +27,21 @@ def prepare_snapshot_data(coordinates, G_comm, S_comm, G_sens, alpha, lambda_cu,
     user_positions = coordinates['user_positions'] / env_dim if normalize else coordinates['user_positions']
     target_positions = coordinates['target_positions'] / env_dim if normalize else coordinates['target_positions']
 
+    # --- 1. Preprocess Channel Gains ---
     max_gain = max(np.max(G_comm), np.max(G_sens))
-    G_comm = G_comm / max_gain if normalize else G_comm
-    G_sens = G_sens / max_gain if normalize else G_sens
+    G_comm_norm = G_comm / max_gain if normalize else G_comm
+    G_sens_norm = G_sens / max_gain if normalize else G_sens
+
+    G_comm_db = 10 * np.log10(G_comm_norm)
+    G_sens_db = 10 * np.log10(G_sens_norm)
+
+    G_comm_stand = (G_comm_db - np.mean(G_comm_db)) / np.std(G_comm_db)
+    G_sens_stand = (G_sens_db - np.mean(G_sens_db)) / np.std(G_sens_db)
+
+    G_comm = G_comm_stand
+    G_sens = G_sens_stand
+
+
 
     num_aps = ap_positions.shape[0]
     num_users = user_positions.shape[0]
@@ -106,6 +118,53 @@ def prepare_snapshot_data(coordinates, G_comm, S_comm, G_sens, alpha, lambda_cu,
     snapshot_data['s_solution'] = solution.s
 
     return snapshot_data
+
+
+def prepare_snapshot_dummy(coordinates, solution):
+    ap_positions = coordinates['ap_positions']
+    user_positions = coordinates['user_positions']
+    target_positions = coordinates['target_positions']
+
+    num_aps = ap_positions.shape[0]
+    num_users = user_positions.shape[0]
+    num_targets = target_positions.shape[0]
+
+    snapshot_data = {}
+
+    # --- TEMPORARY DEBUGGING FEATURES ---
+    # Create identity matrices to serve as one-hot encodings for each node.
+    ap_identities = np.eye(num_aps)
+    user_identities = np.eye(num_users)
+    target_identities = np.eye(num_targets)
+
+    # The model now learns a unique embedding for each specific node ID.
+    snapshot_data['ap_features'] = ap_identities
+    snapshot_data['user_features'] = user_identities
+    snapshot_data['target_features'] = target_identities
+
+    ap_user_src, ap_user_dst = np.meshgrid(np.arange(num_aps), np.arange(num_users))
+    snapshot_data['ap_user_edges'] = np.vstack([ap_user_src.flatten(), ap_user_dst.flatten()])
+
+    # Stack the features horizontally to create a 2D edge feature matrix
+    snapshot_data['ap_user_gains'] = np.ones((num_aps * num_users, 1))
+    snapshot_data['x_solution'] = solution.x.T.flatten()
+
+    ap_target_src, ap_target_dst = np.meshgrid(np.arange(num_aps), np.arange(num_targets))
+    snapshot_data['ap_target_edges'] = np.vstack([ap_target_src.flatten(), ap_target_dst.flatten()])
+    snapshot_data['ap_target_merit'] = np.ones((num_aps * num_targets, 1))
+
+    # Get the sensing association labels (ytx, yrx)
+    snapshot_data['ytx_solution'] = solution.y_tx.T.flatten()
+    snapshot_data['yrx_solution'] = solution.y_rx.T.flatten()
+
+    # --- 6. Add Node-Level Labels ---
+    snapshot_data['tau_solution'] = solution.tau
+    snapshot_data['s_solution'] = solution.s
+
+    return snapshot_data
+
+
+
 
 
 import torch_geometric.transforms as T

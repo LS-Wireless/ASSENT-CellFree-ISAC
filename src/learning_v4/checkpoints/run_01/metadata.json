@@ -1,0 +1,64 @@
+{
+  "TrainConfig": {
+    "device": "cpu",
+    "epochs": 100,
+    "lr": 1e-3,
+    "weight_decay": 1e-4,
+    "batch_size": 16,
+    "eps_smooth": 0.05,
+    "rf_cap": 4.0,
+
+    "w_Lrf": 0.2,
+    "w_Lcoup": 0.2,
+    "w_Ltau": 1.0,
+    "w_Ls": 1.0,
+
+    "gain_col_x": 0,
+    "thresh_min": 0.2,
+    "thresh_max": 0.8,
+    "thresh_steps": 31,
+    "grad_clip": 1.0,
+    "amp": false,
+
+    "warmup_epochs": 5,
+    "lr_min": 1e-5,
+
+    "es_metric": "val_loss_total",
+    "es_mode": "min",
+    "es_patience": 12,
+    "es_min_delta": 1e-4,
+
+    "w_Lytx": 1.0,
+    "w_Lyrx": 1.0,
+    "w_cap": 0.5,
+    "w_tau_match": 0.2,
+    "w_s_gate": 0.2,
+    "K_tx_milp": 2,
+    "K_rx_milp": 2,
+
+    "pareto_max_keep": 5
+  },
+  "config": {
+    "run_id":   "run_01",
+    "save_dir": "checkpoints",
+
+    "TRAIN":        true,
+    "SAVE_MODEL":   true,
+    "save_pareto":  true,
+
+    "SEED": 42,
+    "split_seed" : 0,
+    "pareto_warmup_epochs": 10,
+
+    "backbone" : "nnconv",
+    "_backbone_list": ["nnconv", "gatv2", "transformer"],
+    "gatv2_heads": 4,
+    "transformer_heads": 4,
+    "transformer_beta": false,
+
+    "nsamps": 10000,
+    "nhidden": 128,
+    "nlayers": 3,
+    "drop" : 0.2
+  }
+}

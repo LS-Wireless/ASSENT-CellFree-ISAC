@@ -51,13 +51,15 @@ solution_list = [entry["solution"] for entry in exp2_results]
 total_iters = len(exp2_results)
 full_dataset = []
 for idx in range(total_iters):
-    if (idx+1) % 100 == 0:
+    if (idx+1) % 200 == 0:
         lib.print_log(tag='RUN', message=f"Running for iteration {idx+1}/{total_iters} ...")
     snapshot_dict = lu.prepare_snapshot_data(coordinates[idx//num_pos_reals], G_comm_list[idx], S_comm_list[idx], G_sens_list[idx],
                                              alpha_list[idx], lambda_cu_list[idx], lambda_tg_list[idx], solution_list[idx],
                                              N_RF, M_a, env_dim=env_dim, normalize=True)
+    # snapshot_dict = lu.prepare_snapshot_dummy(coordinates[idx//num_pos_reals], solution_list[idx])
     graph_sample = lu.create_graph_sample(snapshot_dict)
     full_dataset.append(graph_sample)
+# file_path = os.path.join(save_path, 'final_graph_dataset.pt')
 file_path = os.path.join(save_path, 'final_graph_dataset.pt')
 torch.save(full_dataset, file_path)
 lib.print_log(tag='SAVE', message=f"Saved final graph dataset to '{file_path}'")

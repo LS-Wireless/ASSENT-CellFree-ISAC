@@ -24,6 +24,7 @@ print("--- Starting ASSENT Model Training ---")
 # Load your final, processed graph dataset
 print("Loading dataset...")
 file_path = os.path.join(console_run, 'final_graph_dataset.pt')
+# file_path = os.path.join(console_run, 'dummy_graph_dataset.pt')
 full_dataset = torch.load(file_path, weights_only=False)
 # milp_objective_values = torch.load('milp_objective_values.pt')  # Assuming you saved this too
 
@@ -43,9 +44,16 @@ train_dataset = full_dataset[:train_size]
 test_dataset = full_dataset[train_size:]
 # test_milp_utilities = milp_objective_values[train_size:]
 
-train_loader = DataLoader(train_dataset, batch_size=16, shuffle=True)
-test_loader = DataLoader(test_dataset, batch_size=16)
+train_loader = DataLoader(train_dataset, batch_size=128, shuffle=True)
+test_loader = DataLoader(test_dataset, batch_size=32)
 print(f"Dataset loaded: {len(train_dataset)} training samples, {len(test_dataset)} test samples.")
+
+# --- OVERFITTING TEST ---
+overfit_batch = next(iter(train_loader))
+overfit_dataset = overfit_batch.to_data_list()
+# 3. Create a new, proper DataLoader from this tiny dataset.
+#    The batch size is set to the size of the dataset to ensure it runs in one batch.
+overfit_loader = DataLoader(overfit_dataset, batch_size=len(overfit_dataset))
 
 # --- Calculate pos_weight for the 'x' variable ---
 print("Calculating positive weights for loss function...")
@@ -75,9 +83,10 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"Using device: {device}")
 
 # Instantiate your ASSENT model (from the imported class)
-model = ASSENT(node_feature_dims=node_feature_dims, hidden_dim=64).to(device)
-optimizer = torch.optim.Adam(model.parameters(), lr=0.001, weight_decay=5e-4)
-# loss_fn = torch.nn.BCEWithLogitsLoss()
+model = ASSENT(node_feature_dims=node_feature_dims, hidden_dim=256, heads=8).to(device)
+
+optimizer = torch.optim.Adam(model.parameters(), lr=1e-5, weight_decay=5e-4)
+scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max', factor=0.1, patience=5)
 
 # --- Create the weighted loss functions ---
 loss_fns = {
@@ -92,16 +101,24 @@ print("\nWeighted loss functions created successfully.")
 print("Model and optimizer initialized.")
 
 # --- 3. Run Training and Evaluation Loop ---
+TRAIN_EPOCHS = 500
 print("\n--- Starting Training Loop ---")
-for epoch in range(1, 51):
+loss_list = []
+for epoch in range(1, TRAIN_EPOCHS+1):
     # Call the imported training function
-    loss = train_epoch(model, train_loader, optimizer, loss_fns, device)
+    loss = train_epoch(model, overfit_loader, optimizer, loss_fns, device)
+    loss_list.append(loss)
 
     # Call the imported evaluation function
-    f1 = evaluate_model(model, test_loader, device)
+    f1 = evaluate_model(model, overfit_loader, device)
+    scheduler.step(f1)
 
     print(f'Epoch: {epoch:03d} | Train Loss: {loss:.4f} | '
-          f'Test F1 (x): {f1:.4f} | GNN Utility Ratio: {0:.4f}')
+          f'Train F1 (tau): {f1:.4f}')
 
 print("\n--- Training Complete ---")
 
+import matplotlib.pyplot as plt
+import numpy as np
+plt.plot(np.arange(1, TRAIN_EPOCHS+1), loss_list)
+plt.show()
