@@ -16,3 +16,4 @@ __pycache__/
 # === IDE / virtual environment ===
 .venv/
 .DS_Store
+.idea/
