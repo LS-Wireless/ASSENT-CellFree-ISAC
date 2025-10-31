@@ -169,8 +169,9 @@ def run_training(model, train_loader, val_loader, cfg: TrainConfig,
         if added:
             if save_model_state and ep > warmup_epoch_save:
                 # save a checkpoint for this Pareto point
-                os.makedirs(save_path, exist_ok=True)
-                ckpt_path = os.path.join(save_path, f"pareto_ep{ep:03d}.pt")
+                save_path_pareto = os.path.join(save_dir, "pareto")
+                os.makedirs(save_path_pareto, exist_ok=True)
+                ckpt_path = os.path.join(save_path_pareto, f"pareto_ep{ep:03d}.pt")
                 torch.save(model.state_dict(), ckpt_path)
                 lib.print_log(tag='SAVE', message=f'Saved pareto checkpoint to {ckpt_path} at epoch {ep}')
             best.update({
@@ -270,7 +271,7 @@ if __name__ == "__main__":
     import json
     from datetime import datetime
 
-    run_id = 'run_02'
+    run_id = 'run_04'
     load_dir = "checkpoints"
     now = datetime.now()
     timestamp = now.strftime("%Y-%m-%d-%H-%M")

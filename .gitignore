@@ -2,6 +2,7 @@
 *.pt
 *.pth
 *.ckpt
+*.txt
 #*.bin
 #*.onnx
 
