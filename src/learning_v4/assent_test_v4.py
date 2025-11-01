@@ -15,7 +15,9 @@ for i in range(100):
     solution = results['solution'][i]
 
     objVal_gt.append(results['opt_objVal'][i])
-    objVal_est.append(opt.compute_milp_objective(params, solution))
+    milp_obj = opt.compute_milp_objective(params, solution)
+    objVal_est.append(milp_obj['obj_val'])
+    print(milp_obj['sens_util'])
 
 print(np.allclose(objVal_gt, objVal_est))
 

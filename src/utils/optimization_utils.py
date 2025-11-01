@@ -305,12 +305,12 @@ def solve_problem(params: ProblemParams, print_status=True, return_status=False,
 
 
 
-def compute_milp_objective(input_params: dict, solution) -> float:
+def compute_milp_objective(input_params: dict, solution) -> dict:
     """
     Computes the objective value of the MILP problem.
     :param input_params: Dictionary {'G_comm', 'S_comm', 'G_sens', 'lambda_cu', 'lambda_tg', 'alpha', 'interf_penalty'}
     :param solution: Solution object or dictionary {'x', 'tau', 'y_tx', 'y_rx', 's'}
-    :return: Objective value evaluated on the solution
+    :return: Dictionary with {'comm_util', 'sense_util', 'tx_reward', 'obj_val'}
     """
     from types import SimpleNamespace
     params = SimpleNamespace(**input_params)
@@ -330,7 +330,11 @@ def compute_milp_objective(input_params: dict, solution) -> float:
     Gc = np.asarray(params.G_comm, dtype=np.float64)  # [A,U]
     Sc = np.asarray(params.S_comm, dtype=np.float64)  # [A,U,U]
     Gs = np.asarray(params.G_sens, dtype=np.float64)
+    if np.isscalar(params.lambda_cu):
+        params.lambda_cu = np.full(U, params.lambda_cu)
     lcu = np.asarray(params.lambda_cu, dtype=np.float64)  # [U]
+    if np.isscalar(params.lambda_tg):
+        params.lambda_tg = np.full(T, params.lambda_tg)
     ltg = np.asarray(params.lambda_tg, dtype=np.float64)  # [T]
     alpha = float(params.alpha)
     beta = float(params.interf_penalty)
@@ -358,13 +362,15 @@ def compute_milp_objective(input_params: dict, solution) -> float:
     comm_util_p2 = per_a.sum()
     comm_util = (comm_util_p1 - beta * comm_util_p2) / U_comm_ref
 
-    sense_util = float(np.sum([ltg[t] * Gsn[a_t, a_r, t] * (ytx[a_t, t] * yrx[a_r, t] * s[t])
-                               for a_t in range(A) for a_r in range(A) for t in range(T)])) / U_sens_ref
+    sens_util = float(np.sum([ltg[t] * Gsn[a_t, a_r, t] * (ytx[a_t, t] * yrx[a_r, t] * s[t])
+                              for a_t in range(A) for a_r in range(A) for t in range(T)])) / U_sens_ref
 
     tx_reward = np.sum(mu[a] * tau[a] for a in range(A))
-
-    obj_val = alpha * comm_util + (1 - alpha) * sense_util + tx_reward
-    return obj_val
+    obj_val = alpha * comm_util + (1 - alpha) * sens_util + tx_reward
+    obj_val_noreward = alpha * comm_util + (1 - alpha) * sens_util
+    output = {'comm_util': comm_util, 'sens_util': sens_util, 'tx_reward': tx_reward,
+              'obj_val': obj_val, 'obj_val_noreward': obj_val_noreward}
+    return output
 
 
 

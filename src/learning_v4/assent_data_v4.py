@@ -2,7 +2,7 @@
 
 # file: assent_data_v3.py
 from torch_geometric.data import HeteroData
-from assent_data_utils_v4 import *
+from src.learning_v4.assent_data_utils_v4 import *
 import src.utils.library as lib
 import os
 
