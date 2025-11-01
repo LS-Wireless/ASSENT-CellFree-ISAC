@@ -110,8 +110,8 @@ If you use this repository in your research, please cite:
 
 ### Contact
 
-For questions or collaborations, please contact:
-🌐 https://mehdizafari.github.io￼
+For questions or collaborations, please contact:\
+🌐 https://mehdizd97.github.io/
 
 
 **Note:** This repository and associated algorithms are part of ongoing research. Final results and additional updates will be provided upon publication acceptance.
