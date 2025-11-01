@@ -6,6 +6,10 @@
 #*.bin
 #*.onnx
 
+# Allow specific text files
+!requirements.txt
+!LICENSE
+
 # === Ignore local run outputs ===
 __pycache__/
 *.py[cod]
