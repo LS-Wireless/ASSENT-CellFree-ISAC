@@ -1,7 +1,3 @@
-Here’s a clean, professional, and publication-ready README.md tailored for your GitHub repository — polished to look great for both academic and open-source audiences 👇
-
-⸻
-
 
 # ASSENT: Learning-Based Association Optimization for Distributed Cell-Free ISAC
 
