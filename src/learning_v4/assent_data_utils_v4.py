@@ -218,6 +218,13 @@ def ap_target_edge_feats(Gsn, topk=3):
 
 
 def data_loader(nsamps=10000, CONSOLE_RUN=False):
+    """
+    Directly loads data from exp1_baseline/run_01
+    :param nsamps: number of samples to load
+    :param CONSOLE_RUN: wheather running from console or not
+    :return: result_lists dictionary including {G_comm, S_comm, G_sens, alpha, lambda_cu, lambda_tg, solution,
+    opt_objVal, N_RF, interf_penalty, K_tx_milp, K_rx_milp}
+    """
     import os
     import json
     import src.utils.library as lib
@@ -259,6 +266,86 @@ def data_loader(nsamps=10000, CONSOLE_RUN=False):
     solution_list = [entry["solution"] for entry in exp2_results]
     opt_objVal_list = [entry["opt_objVal"] for entry in exp2_results]
 
+
+    result_lists = {'G_comm': G_comm_list[:nsamps], 'S_comm': S_comm_list[:nsamps], 'G_sens': G_sens_list[:nsamps],
+                    'alpha': alpha_list[:nsamps], 'lambda_cu': lambda_cu_list[:nsamps], 'lambda_tg': lambda_tg_list[:nsamps],
+                    'solution': solution_list[:nsamps], 'opt_objVal': opt_objVal_list[:nsamps],
+                    'N_RF': exp1_metadata['NetworkParams']['N_RF'], 'interf_penalty': exp2_metadata['config']['interf_penalty'],
+                    'K_tx_milp': exp2_metadata['config']['K_tx'], 'K_rx_milp': exp2_metadata['config']['K_rx']}
+    return result_lists
+
+
+
+
+def input_data_loader(path_to_input_data, input_file_name, path_to_solution_data, solution_file_name,
+                      input_parts_to_load=1, solution_parts_to_load=1, nsamps=10000):
+    """
+    Loads channel input data from exp1_baseline/ and solution data from exp2_data_gen/
+    :param path_to_input_data: path to channel input data from exp1_baseline/
+    :param input_file_name: file name in exp1_baseline/ to load
+    :param path_to_solution_data: path to solution data from exp2_data_gen/
+    :param solution_file_name: file name in exp2_data_gen/ to load
+    :param input_parts_to_load: if saved in multiple parts, number of parts to load
+    :param solution_parts_to_load: if saved in multiple parts, number of parts to load
+    :param nsamps: number of result samples to return
+    :return: result_lists dictionary including {G_comm, S_comm, G_sens, alpha, lambda_cu, lambda_tg, solution,
+    opt_objVal, N_RF, interf_penalty, K_tx_milp, K_rx_milp}
+    """
+    import os
+    import json
+    import src.utils.library as lib
+
+    if not os.path.exists(path_to_input_data):
+        raise FileNotFoundError(f"Save path '{path_to_input_data}' does not exist.")
+    metadata_path = os.path.join(path_to_input_data, 'metadata.json')
+    with open(metadata_path) as f:
+        exp1_metadata = json.load(f)
+    num_parts = exp1_metadata['config']['num_parts_to_save']
+
+    if num_parts == 1:
+        filename = f'{input_file_name}.pkl'
+        file_path = os.path.join(path_to_input_data, filename)
+        exp1_results = lib.load_results(file_path)
+        lib.print_log(tag='LOAD', message=f"Loading file '{file_path}'")
+    else:
+        exp1_results = []
+        for i in range(input_parts_to_load):
+            filename = f'{input_file_name}_p{i+1}_of_{num_parts}.pkl'
+            file_path = os.path.join(path_to_input_data, filename)
+            exp1_results += lib.load_results(file_path)
+            lib.print_log(tag='LOAD', message=f"Loading file '{file_path}'")
+    lib.print_log(tag='LOAD', message=f"Loaded exp1 results from '{path_to_input_data}'")
+
+    if not os.path.exists(path_to_solution_data):
+        raise FileNotFoundError(f"Save path '{path_to_solution_data}' does not exist.")
+    metadata_path = os.path.join(path_to_solution_data, 'metadata.json')
+    with open(metadata_path) as f:
+        exp2_metadata = json.load(f)
+    solution_num_parts = exp2_metadata['config']['num_parts_to_save']
+
+    if solution_num_parts == 1:
+        filename = f'{solution_file_name}.pkl'
+        file_path = os.path.join(path_to_solution_data, filename)
+        exp2_results = lib.load_results(file_path)
+        lib.print_log(tag='LOAD', message=f"Loading file '{file_path}'")
+    else:
+        exp2_results = []
+        for i in range(solution_parts_to_load):
+            filename = f'{solution_file_name}_p{i+1}_of_{solution_num_parts}.pkl'
+            file_path = os.path.join(path_to_solution_data, filename)
+            exp2_results += lib.load_results(file_path)
+            lib.print_log(tag='LOAD', message=f"Loading file '{file_path}'")
+    lib.print_log(tag='LOAD', message=f"Loaded exp2 results from '{path_to_solution_data}'")
+
+    G_comm_list = [entry["G_comm"] for entry in exp1_results]
+    S_comm_list = [entry["S_comm"] for entry in exp1_results]
+    G_sens_list = [entry["G_sens"] for entry in exp1_results]
+
+    alpha_list = [entry["alpha"] for entry in exp2_results]
+    lambda_cu_list = [entry["lambda_cu"] for entry in exp2_results]
+    lambda_tg_list = [entry["lambda_tg"] for entry in exp2_results]
+    solution_list = [entry["solution"] for entry in exp2_results]
+    opt_objVal_list = [entry["opt_objVal"] for entry in exp2_results]
 
     result_lists = {'G_comm': G_comm_list[:nsamps], 'S_comm': S_comm_list[:nsamps], 'G_sens': G_sens_list[:nsamps],
                     'alpha': alpha_list[:nsamps], 'lambda_cu': lambda_cu_list[:nsamps], 'lambda_tg': lambda_tg_list[:nsamps],

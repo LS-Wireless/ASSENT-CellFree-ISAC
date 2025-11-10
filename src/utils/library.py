@@ -955,6 +955,25 @@ def print_log(tag, message, width=15, pad_char='-'):
 
 
 
+# -------------------------------------------------------------------
+# Log file saving
+# -------------------------------------------------------------------
+import sys
+class TeeLogger(object):
+    """Log to both console and a file."""
+    def __init__(self, filepath):
+        self.terminal = sys.stdout
+        self.log = open(filepath, "a", buffering=1)  # line-buffered
+
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)
+
+    def flush(self):
+        self.terminal.flush()
+        self.log.flush()
+
+
 
 
 # ------------------------------------------------

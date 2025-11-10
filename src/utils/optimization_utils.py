@@ -156,13 +156,14 @@ class Solution:
 
 
 # Optimization solver
-def solve_problem(params: ProblemParams, print_status=True, return_status=False, return_objVal=False) -> Solution:
+def solve_problem(params: ProblemParams, print_status=True, return_status=False, return_objVal=False, add_reward=True) -> Solution:
     """
     Solve the optimization problem using Gurobi solver.
     :param params: ProblemParams object containing the problem parameters
     :param print_status: Whether to print the optimization status
     :param return_status: Whether to return the optimization status
     :param return_objVal: Whether to return the objective value
+    :param add_reward: Whether to add the reward term to the objective function
     :return: Solution object containing the solution variables (and optionally status and objective value)
     """
 
@@ -252,7 +253,11 @@ def solve_problem(params: ProblemParams, print_status=True, return_status=False,
     sense_util = gp.quicksum(
         params.lambda_tg[t] * params.G_sens[a_t, a_r, t] * z[a_t, t, a_r] for a_t in range(params.N_ap) for a_r in
         range(params.N_ap) for t in range(params.N_tg)) / U_sens_ref
-    tx_reward = gp.quicksum(params.mu[a] * tau[a] for a in range(params.N_ap))
+
+    if add_reward:
+        tx_reward = gp.quicksum(params.mu[a] * tau[a] for a in range(params.N_ap)) / U_comm_ref
+    else:
+        tx_reward = 0.0
 
     model.setObjective(params.alpha * comm_util + (1 - params.alpha) * sense_util + tx_reward, GRB.MAXIMIZE)
 
@@ -305,11 +310,12 @@ def solve_problem(params: ProblemParams, print_status=True, return_status=False,
 
 
 
-def compute_milp_objective(input_params: dict, solution) -> dict:
+def compute_milp_objective(input_params: dict, solution, add_reward: bool = True) -> dict:
     """
     Computes the objective value of the MILP problem.
     :param input_params: Dictionary {'G_comm', 'S_comm', 'G_sens', 'lambda_cu', 'lambda_tg', 'alpha', 'interf_penalty'}
     :param solution: Solution object or dictionary {'x', 'tau', 'y_tx', 'y_rx', 's'}
+    :param add_reward: Whether to add the Tx operation reward to the objective value
     :return: Dictionary with {'comm_util', 'sense_util', 'tx_reward', 'obj_val'}
     """
     from types import SimpleNamespace
@@ -365,7 +371,10 @@ def compute_milp_objective(input_params: dict, solution) -> dict:
     sens_util = float(np.sum([ltg[t] * Gsn[a_t, a_r, t] * (ytx[a_t, t] * yrx[a_r, t] * s[t])
                               for a_t in range(A) for a_r in range(A) for t in range(T)])) / U_sens_ref
 
-    tx_reward = np.sum(mu[a] * tau[a] for a in range(A))
+    if add_reward:
+        tx_reward = np.sum(mu[a] * tau[a] for a in range(A)) / U_comm_ref
+    else:
+        tx_reward = 0
     obj_val = alpha * comm_util + (1 - alpha) * sens_util + tx_reward
     obj_val_noreward = alpha * comm_util + (1 - alpha) * sens_util
     output = {'comm_util': comm_util, 'sens_util': sens_util, 'tx_reward': tx_reward,

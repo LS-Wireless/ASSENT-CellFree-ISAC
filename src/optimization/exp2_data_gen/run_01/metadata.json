@@ -1,8 +1,13 @@
 {
   "config": {
+    "path_to_input_data": "../exp1_baseline/run_01",
+    "input_file_name": "2025-10-03_results",
+    "input_parts_to_load": 4,
+
     "SAVE_RESULTS": true,
     "num_parts_to_save": 1,
     "_num_parts_to_save": "to how many parts the results should be split (for size reduction)",
+
     "master_seed": 4,
     "run_id": "run_01",
     "experiment": "exp2_data_gen",
@@ -13,6 +18,7 @@
     "rho_thresh": 0.8,
     "lambda_cu_range": [0.5, 5.0],
     "lambda_tg_range": [0.5, 5.0],
+
     "results_to_save": "all",
     "_full_list_of_results": [
       "alpha", "lambda_cu", "lambda_tg",

@@ -7,19 +7,27 @@ import src.utils.network_utils as net
 import src.utils.library as lib
 import time
 from datetime import datetime
+import sys
+
+run_id = 'run_03'
+now = datetime.now()
+timestamp = now.strftime("%Y-%m-%d-%H-%M")
+log_path = os.path.join(run_id, f"{timestamp}_log_{run_id}.txt")
+sys.stdout = lib.TeeLogger(log_path)
 
 start_time = time.time()
 width = 50
 print("=" * width)
-print(">> Simulation Started <<".center(width))
+print(">> Monte Carlo Run for MILP Optimization Started <<".center(width))
+print(f'{now.strftime("%A, %B %d, %Y at %I:%M:%S %p")}')
 print("=" * width)
 
 # Load metadata
-run_id = 'run_02'
 experiment = 'exp1_baseline'
 save_path = os.path.join('./', run_id)
 if not os.path.exists(save_path):
     raise FileNotFoundError(f"Save path '{save_path}' does not exist.")
+lib.print_log(tag='CONFIG', message=f"Run ID: '{run_id}'")
 
 metadata_path = os.path.join(save_path, 'metadata.json')
 with open(metadata_path) as f:
@@ -53,6 +61,9 @@ if np.isscalar(config['alpha']):
 else:
     alpha_list = config['alpha']
 lib.print_log(tag='CONFIG', message=f"Alpha values: {alpha_list}")
+
+add_reward = config.get('add_reward', True)
+lib.print_log(tag='CONFIG', message=f"add_reward for optimization: {add_reward}")
 
 total_iters = num_entity_position_realizations * num_entity_channel_realizations * len(alpha_list)
 lib.print_log(tag='RUN', message=f"Total number of iterations: {total_iters}")
@@ -106,7 +117,7 @@ for alpha_idx, alpha_value in enumerate(alpha_list):
             else:
                 optparams.change(G_comm=G_comm_norm, G_sens=G_sens_norm, S_mat=S_comm, alpha=alpha_value, update_dependencies=True)
 
-            solution, opt_status, opt_objVal = opt.solve_problem(optparams, return_status=True, return_objVal=True, print_status=False)
+            solution, opt_status, opt_objVal = opt.solve_problem(optparams, return_status=True, return_objVal=True, print_status=False, add_reward=add_reward)
 
             loop_result = {'pos_seed': entity_position_seeds[pos_iter], 'ch_seed': entity_channel_seeds[ch_iter],
                            'alpha': alpha_value, 'G_comm': G_comm, 'S_comm': S_comm, 'G_sens': G_sens,
@@ -115,7 +126,8 @@ for alpha_idx, alpha_value in enumerate(alpha_list):
             saver.add(filtered_result)
             if SAVE_RESULTS and save_indices is not None and current_iter in save_indices:
                 timestamp = datetime.now().strftime("%Y-%m-%d")
-                file_path = os.path.join(save_path, timestamp + f'_results_p{save_part_counter}_of_{num_parts_to_save}.pkl')
+                reward_tag = '' if add_reward else '_noReward'
+                file_path = os.path.join(save_path, timestamp + f'_results_p{save_part_counter}_of_{num_parts_to_save}{reward_tag}.pkl')
                 saver.save(file_path)
                 lib.print_log(tag='SAVE', message=f"Saved part {save_part_counter} out of {num_parts_to_save} to: '{file_path}'\n")
                 saver.reset()
@@ -125,14 +137,15 @@ lib.print_log(tag='RUN', message=f"Finished iterations.\n")
 
 if SAVE_RESULTS and save_indices is None:
     timestamp = datetime.now().strftime("%Y-%m-%d-%H-%M")
-    file_path = os.path.join(save_path, timestamp + '_results.pkl')
+    reward_tag = '' if add_reward else '_noReward'
+    file_path = os.path.join(save_path, timestamp + f'_results{reward_tag}.pkl')
     saver.save(file_path)
     lib.print_log(tag='SAVE', message=f"Saved results to: '{file_path}'")
 
 end_time = time.time()
 duration = end_time - start_time
 print("=" * width)
-print(">> Simulation finished <<".center(width))
+print(">> MILP Optimization finished <<".center(width))
 print(f"{'Total iterations:':<20} {total_iters}")
 print(f"{'Execution time:':<20} {duration//60:.0f} min and {duration%60:.2f} seconds")
 print("=" * width)
