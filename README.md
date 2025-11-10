@@ -135,7 +135,7 @@ viz.plot_system_snapshot(ap_pos=network.ap_positions, user_pos=network.user_posi
 ```
 
 <p align="center">
-  <img src="src/optimization/snapshot.png" alt="Topology" width="450"/>
+  <img src="src/optimization/snapshot.png" alt="Topology" width="550"/>
 </p>
 
 ---
@@ -162,7 +162,7 @@ If you use this repository in your research, please cite:
   author       = {Zafari, Mehdi},
   year         = {2025},
   howpublished = {GitHub repository},
-  url          = {https://github.com/<your-org-or-user>/ASSENT-CellFree-ISAC},
+  url          = {https://github.com/LS-Wireless/ASSENT-CellFree-ISAC},
   note         = {Version 1.0.0}
 }
 ```
