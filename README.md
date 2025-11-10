@@ -123,7 +123,7 @@ network.plot_topology()
 G_comm, S_comm = network.generate_commLink_features()
 G_sens = network.generate_sensLink_features()
 
-optparams = opt.ProblemParams(G_comm=G_comm_norm, G_sens=G_sens_norm, S_mat=S_comm, alpha=0.5)
+optparams = opt.ProblemParams(G_comm=G_comm, G_sens=G_sens, S_mat=S_comm, alpha=0.5)
 optparams.change(lambda_cu=1.0, lambda_tg=1.0)
 solution = opt.solve_problem(optparams)
 ```
