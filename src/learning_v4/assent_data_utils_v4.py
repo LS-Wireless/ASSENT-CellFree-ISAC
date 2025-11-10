@@ -295,6 +295,14 @@ def input_data_loader(path_to_input_data, input_file_name, path_to_solution_data
     import json
     import src.utils.library as lib
 
+    BASE_DIR = os.path.dirname(os.path.abspath(__name__))
+    if os.path.basename(BASE_DIR) == 'ASSENT-CellFree-ISAC':
+        BASE_DIR = os.path.join(BASE_DIR + '/src/assent')
+    else:
+        BASE_DIR = os.path.join(BASE_DIR)
+    path_to_input_data = os.path.normpath(os.path.join(BASE_DIR, path_to_input_data))
+    path_to_solution_data = os.path.normpath(os.path.join(BASE_DIR, path_to_solution_data))
+
     if not os.path.exists(path_to_input_data):
         raise FileNotFoundError(f"Save path '{path_to_input_data}' does not exist.")
     metadata_path = os.path.join(path_to_input_data, 'metadata.json')
@@ -302,6 +310,7 @@ def input_data_loader(path_to_input_data, input_file_name, path_to_solution_data
         exp1_metadata = json.load(f)
     num_parts = exp1_metadata['config']['num_parts_to_save']
 
+    valid_parts_to_load = [2, 3]
     if num_parts == 1:
         filename = f'{input_file_name}.pkl'
         file_path = os.path.join(path_to_input_data, filename)
@@ -310,7 +319,8 @@ def input_data_loader(path_to_input_data, input_file_name, path_to_solution_data
     else:
         exp1_results = []
         for i in range(input_parts_to_load):
-            filename = f'{input_file_name}_p{i+1}_of_{num_parts}.pkl'
+            idx = valid_parts_to_load[i]
+            filename = f'{input_file_name}_p{idx}_of_{num_parts}.pkl'
             file_path = os.path.join(path_to_input_data, filename)
             exp1_results += lib.load_results(file_path)
             lib.print_log(tag='LOAD', message=f"Loading file '{file_path}'")
