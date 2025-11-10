@@ -18,9 +18,9 @@ netparams = net.NetworkParams(N_ap=N_ap, M_a=M_a, N_RF=N_RF, N_cu=N_cu, N_tg=N_t
 network = net.NetworkEnvironment(netparams)
 netparams.ap_position_mode = 'circle'
 netparams.ap_circle_radius = 350
-netparams.ap_position_random_state = 10
-netparams.user_position_random_state = 10
-netparams.target_position_random_state = 10
+netparams.ap_position_random_state = None
+netparams.user_position_random_state = None
+netparams.target_position_random_state = None
 
 netparams.user_channel_random_state = 10
 netparams.target_channel_random_state = 10
@@ -42,43 +42,6 @@ optparams.change(lambda_cu=1.0, lambda_tg=1.0)
 
 solution = opt.solve_problem(optparams, print_status=False)
 
-#%% Saving
-
-import pickle
-
-# with open(f"netparams.pkl", "wb") as f:
-#     pickle.dump(netparams, f)
-
-# with open(f"solution.pkl", "wb") as f:
-#     pickle.dump(solution, f)
-
-import os
-
-cwd = os.getcwd()
-
-# with open(f"netparams.pkl", "rb") as f:
-#     netparams_opended = pickle.load(f)
-# netparams_opended.summary()
-
-# with open(f"solution.pkl", "rb") as f:
-#     sol_opended = pickle.load(f)
-# sol_opended.summary()
-
-
-save_path = cwd + '/src/optimization'
-lib.save_dataclass_hybrid(netparams, save_path, filename='netparams')
-
-
-# loading
-
-arrays_dict = np.load(f"{save_path}/netparams_arrays.npz")
-
-#%%
-
-from datetime import datetime
-
-timestamp = datetime.now().strftime("%Y-%m-%d-%H-%M")
-print(timestamp)
 
 #%% Visualization
 

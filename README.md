@@ -10,7 +10,7 @@ The framework is developed as part of the research paper:
 
 ---
 
-## 🌐 Overview
+## Overview
 
 ASSENT addresses the **association problem** in distributed cell-free ISAC networks, where a central server determines:
 - Which **access points (APs)** serve which **users and sensing targets**,  
@@ -27,16 +27,20 @@ The system first formulates the problem as a **Mixed-Integer Linear Program (MIL
 ```
 distributed-cellfree-isac/
 ├── src/
+│   ├── assent/                 # ASSENT code
+│   │       ├── checkpoints     # Model parameters saved for different runs
+│   │       └── figures/        # Figures for learning evaluation
 │   ├── utils/                  # Utility functions and simulation classes
 │   ├── optimization/           # MILP formulation and dataset generation
 │   │       ├── exp1_baseline/  # Baseline MILP solution
+│   │       ├── exp1_pareto/    # Pareto evaluation for MILP solutions
 │   │       └── exp2_data_gen/  # MILP-based dataset generation
-│   ├──learning/                # GNN-based learning framework (v0)
+│   ├── learning_v1/            # GNN-based learning framework (v1)
 │   ├── learning_v2/            # GNN-based learning framework (v2)
 │   ├── learning_v3/            # GNN-based learning framework (v3)
 │   └── learning_v4/            # GNN-based learning framework (v4) --> Current version
 │           ├── cache_graphs/   # Cached graphs (precomputed)
-│           ├── checkpoints/    # model parameters saved for different runs
+│           ├── checkpoints/    # Model parameters saved for different runs
 │           └── figures/        # Figures generated for learning evaluation
 ├── notebooks/                  # Jupyter notebooks for analysis and visualization
 ├── LICENSE                     # License file
@@ -46,7 +50,7 @@ distributed-cellfree-isac/
 
 ---
 
-## ⚙️ Optimization Module
+## Optimization Module
 
 The MILP problem is implemented in Python using **Gurobi**.  
 It optimizes a **weighted sum objective** of normalized communication and sensing utilities, with a tunable trade-off parameter `α`.
@@ -64,7 +68,7 @@ src/optimization/
 
 ---
 
-## 🧠 Learning Framework
+## Learning Framework
 
 The GNN-based learning framework is implemented in:
 
@@ -82,6 +86,60 @@ src/learning_v4/
 - **Comprehensive Evaluation** using F1, Precision, Recall, and Brier score metrics
 
 ---
+
+## Quickstart
+
+### Setup
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/LS-Wireless/ASSENT-CellFree-ISAC.git
+cd ASSENT-CellFree-ISAC
+pip install -r requirements.txt
+```
+
+### Import Utilities
+Make sure to import the necessary utilities from the `utils` module:
+```bash
+import src.utils.visualization_utils as viz
+import src.utils.optimization_utils as opt
+import src.utils.network_utils as net
+```
+
+### Running Simulations
+Below are simple examples of how to write scripts to generate network layout, run the MILP optimization, and visualize the results.
+
+```bash
+netparams = net.NetworkParams(N_ap=8, M_a=16, N_RF=4, N_cu=10, N_tg=4)
+network = net.NetworkEnvironment(netparams)
+network.generate_topology()
+network.plot_topology()
+```
+
+<p align="center">
+  <img src="src/optimization/topology.png" alt="Topology" width="450"/>
+</p>
+
+```bash
+G_comm, S_comm = network.generate_commLink_features()
+G_sens = network.generate_sensLink_features()
+
+optparams = opt.ProblemParams(G_comm=G_comm_norm, G_sens=G_sens_norm, S_mat=S_comm, alpha=0.5)
+optparams.change(lambda_cu=1.0, lambda_tg=1.0)
+solution = opt.solve_problem(optparams)
+```
+```bash
+viz.print_solution_summary(solution)
+# System Snapshot
+viz.plot_system_snapshot(ap_pos=network.ap_positions, user_pos=network.user_positions, target_pos=network.target_positions, sol=solution)
+```
+
+<p align="center">
+  <img src="src/optimization/snapshot.png" alt="Topology" width="450"/>
+</p>
+
+---
+
 ## Citation
 
 If you use this repository in your research, please cite:
@@ -91,7 +149,7 @@ If you use this repository in your research, please cite:
 @inproceedings{zafari2026assent,
   title     = {ASSENT: Learning-Based Association Optimization for Distributed Cell-Free ISAC},
   author    = {Zafari, Mehdi and Swindlehurst, A. Lee},
-  booktitle = {Proceedings of the IEEE International Conference on Communications (ICC)},
+  booktitle = {IEEE International Conference on Communications (ICC)},
   year      = {2026},
   note      = {Submitted}
 }
@@ -100,10 +158,12 @@ If you use this repository in your research, please cite:
 ### Code/Repository
 ```bibtex
 @misc{zafari2025assent,
-  title        = {ASSENT-CellFree-ISAC: Learning-Based Association Optimization for Distributed Cell-Free ISAC},
+  title        = {ASSENT-CellFree-ISAC: Simulation Framework},
   author       = {Zafari, Mehdi},
   year         = {2025},
-  howpublished = {\url{https://github.com/<your-org-or-user>/ASSENT-CellFree-ISAC}}
+  howpublished = {GitHub repository},
+  url          = {https://github.com/<your-org-or-user>/ASSENT-CellFree-ISAC},
+  note         = {Version 1.0.0}
 }
 ```
 ---
