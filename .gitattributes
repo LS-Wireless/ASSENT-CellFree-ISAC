@@ -1,4 +1,4 @@
-*.ipynb linguist-documentation
+#*.ipynb linguist-documentation
 src/optimization/exp1_baseline/run_03/2025-11-06_results_p1_of_3.pkl filter=lfs diff=lfs merge=lfs -text
 src/optimization/exp1_baseline/run_03/2025-11-06_results_p2_of_3.pkl filter=lfs diff=lfs merge=lfs -text
 src/optimization/exp1_baseline/run_03/2025-11-06_results_p3_of_3.pkl filter=lfs diff=lfs merge=lfs -text
@@ -6,3 +6,4 @@ src/optimization/exp1_pareto/run_01/2025-11-07-12-03_results.pkl filter=lfs diff
 
 *.ipynb linguist-detectable=true
 *.json linguist-detectable=true
+*.ipynb linguist-language=Python
