@@ -70,9 +70,8 @@ src/optimization/
 
 ## Learning Framework
 
-The GNN-based learning framework is implemented in:
-
-src/learning_v4/
+All the modules for the GNN-based learning framework are implemented in `src/learning_v4/`.
+Ready-to-run scripts for ASSENT are in the `src/assent/` directory.
 
 ### Features:
 - **Heterogeneous Graph Representation** of the ISAC network  
