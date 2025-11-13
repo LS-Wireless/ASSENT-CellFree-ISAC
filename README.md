@@ -6,7 +6,9 @@ The framework is developed as part of the research paper:
 
 > **"ASSENT: Learning-Based Association Optimization for Distributed Cell-Free ISAC"**  
 > *Mehdi Zafari and A. Lee Swindlehurst*  
-> Submitted to **IEEE International Conference on Communications (ICC) 2026**
+> Under review, Nov. 2025.
+
+[//]: # (> Submitted to **IEEE International Conference on Communications &#40;ICC&#41; 2026**)
 
 ---
 
@@ -148,9 +150,9 @@ If you use this repository in your research, please cite:
 @inproceedings{zafari2026assent,
   title     = {ASSENT: Learning-Based Association Optimization for Distributed Cell-Free ISAC},
   author    = {Zafari, Mehdi and Swindlehurst, A. Lee},
-  booktitle = {IEEE International Conference on Communications (ICC)},
-  year      = {2026},
-  note      = {Submitted}
+  month     = {November},
+  year      = {2025},
+  note      = {Under review}
 }
 ```
 
